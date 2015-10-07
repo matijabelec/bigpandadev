@@ -1,0 +1,114 @@
+{# BigPandaDevMainBundle:Crud:table.html.twig #}
+<div class="panel">
+    <div class="panel-heading">
+        {% if table_title is defined %}
+            <h2 class="pull-left">{{ table_title }}</h2>
+        {% endif %}
+        <a href="{{ path(route_name, {'action':'create'}) }}" class="btn btn-primary pull-right"
+           role="button" 
+           data-toggle="tooltip" 
+           data-original-title="{{ 'Create'|trans }}"><i class="fa fa-plus"></i> {{ 'Create'|trans}}</a>
+
+        {#<div class="col-xs-6 text-left">
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label class="filter-col" style="margin-right:0;" for="pref-perpage">Rows: </label>
+                    <select id="pref-perpage" class="form-control">
+                        <option selected="selected" value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>                                
+                </div>
+            </form>
+        </div>
+
+        <div class="col-xs-6 text-right">
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label class="filter-col" style="margin-right:0;" for="pref-search">Search:</label>
+                    <input type="text" class="form-control input-sm" id="pref-search">
+                </div>
+            </form>
+        </div>#}
+    </div>
+    <div class="clearfix"></div>
+    <div class="panel-body">
+        <div class="table-responsive"> 
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        {% if no_numeration is not defined %}
+                            <th class="text-center">{{ 'No.'|trans }}</th>
+                        {% endif %}
+
+                        {% block header %}{% endblock %}
+
+                        {% block header_actions %}
+                            <th>&nbsp;</th>
+                            {#    <a href="{{ path(route_name, {'action':'create'}) }}" class="btn btn-primary pull-right"
+                                   role="button" 
+                                   data-toggle="tooltip" 
+                                   data-original-title="{{ 'Create'|trans }}"><i class="fa fa-plus"></i></a>
+                            </th>#}
+                        {% endblock %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% block data %}
+                        {% for record in records %}
+                            <tr>
+                                {% if no_numeration is not defined %}
+                                    <td class="text-right" style="vertical-align: middle;">{{ loop.index }}</td>
+                                {% endif %}
+
+                                {% block record %}{% endblock %}
+
+                                {% block record_actions %}
+                                    <td class="text-center" style="font-size: 20px">
+{#                                        <a href="{{ path(route_name, {'action':record.id}) }}"
+                                           data-toggle="tooltip" 
+                                           data-original-title="{{ 'View'|trans }}">
+                                            <i class="fa fa-sticky-note-o"></i></a>#}
+                                        <a role="button" {#class="btn btn-info btn-lg" #}
+                                           data-toggle="modal"
+{#                                           data-href="{{ path(route_name, {'action':record.id}) }}"#}
+                                           {% block record_show_data %}{% endblock%}
+                                           data-toggle="tooltip"><i class="fa fa-sticky-note-o"
+                                                                    data-original-title="{{ 'View'|trans }}"
+                                                                    data-toggle="tooltip"></i></a>
+                                        <a href="{{ path(route_name, {'action':'edit', 'id':record.id}) }}"
+                                           data-toggle="tooltip" 
+                                           data-original-title="{{ 'Edit'|trans }}"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a role="button" {#class="btn btn-info btn-lg" #}
+                                           data-toggle="modal"
+                                           data-href="{{ path(route_name, {'action':'delete', 'id':record.id}) }}"
+                                           {% block record_delete_data %}{% endblock%}
+                                           data-toggle="tooltip"><i class="fa fa-times"
+                                                                    data-original-title="{{ 'Delete'|trans }}"
+                                                                    data-toggle="tooltip"></i></a>
+                                           {#<a href="{{ path(route_name, {'action':'delete', 'id':record.id}) }}"
+                                           data-toggle="tooltip" 
+                                           data-original-title="{{ 'Delete'|trans }}"><i class="fa fa-times"></i></a>#}
+                                    </td>
+                                {% endblock %}
+                            </tr>
+                        {% else %}
+                            <tr>
+                                {% block no_records_found %}{{ 'No records found!'|trans }}{% endblock %}
+                            </tr>
+                        {% endfor %}
+                    {% endblock %}
+                </tbody>
+            </table>
+        </div>
+        {#
+        <div>
+            <a href="{{ path(route_name, {'action':'create'}) }}" class="btn btn-primary pull-right"
+               role="button" 
+               data-toggle="tooltip" 
+               data-original-title="{{ 'Create'|trans }}"><i class="fa fa-plus"></i> {{ 'Create'|trans}}</a>
+        </div>#}
+    </div>
+</div>

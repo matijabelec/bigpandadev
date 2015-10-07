@@ -1,0 +1,62 @@
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ path('_homepage') }}">BigPanda</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topnav">
+                <i class="fa fa-bars navicon"></i>
+            </button>    
+        </div>
+        <div class="navbar-collapse collapse" id="topnav">
+            <ul class="nav navbar-nav navbar-left">
+{#                <li><a href="#home"><i class="fa fa-home navicon"></i> {{ 'Home'|trans }}</a></li>#}
+                
+                {% if app.user and is_granted('ROLE_USER') %}
+                    <li><a href="{{ path('_orders') }}"><i class="fa fa-lock navicon"></i> <span>{{ 'Orders'|trans }}</span></a></li>
+                    <li><a href="#paynaments"><i class="fa fa-cart-plus navicon"></i> <span>{{ 'Payments'|trans }}</span></a></li>
+                    <li><a href="#feedbacks"><i class="fa fa-envelope navicon"></i> <span>{{ 'Feedbacks'|trans }}</span></a></li>
+                {% endif %}
+                
+                {% if app.user and is_granted('ROLE_EMPLOYEE') %}
+                    <li><a href="#tasks"><i class="fa fa-cog navicon"></i> <span>{{ 'Tasks'|trans }}</span></a></li>
+                {% endif %}
+                
+                {% if app.user and is_granted('ROLE_USER') %}
+                    <li><a href="#stats"><i class="fa fa-line-chart navicon"></i> <span>{{ 'Statistics'|trans }}</span></a></li>
+                {% endif %}
+                
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <li><a href="#admin"><i class="fa fa-lock navicon"></i> <span>{{ 'Admin panel'|trans }}</span></a></li>
+                {% endif %}
+                
+{#                {% if not app.user %}#}
+                    <li><a href="#"><i class="fa fa-question-circle navicon"></i> <span>{{ 'About'|trans }}</span></a></li>
+                    <li><a href="#"><i class="fa fa-envelope-o navicon"></i> <span>{{ 'Contact'|trans }}</span></a></li>
+{#                {% endif %}#}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if app.user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-male navicon"></i> <span>({{ app.user.username }})</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">{{ app.user.username }}</li>
+                            <li><a href="#"><i class="fa fa-male"></i> {{ 'Profile'|trans }}</a></li>
+                            <li><a href="{{ path('_logout') }}"><i class="fa fa-sign-out"></i> {{ 'Logout'|trans }}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="fa fa-cogs"></i> {{ 'Settings'|trans }}</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('_login') }}"><i class="fa fa-sign-in navicon"></i> {{ 'Login'|trans }}</a></li>
+                {% endif %}
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe navicon"></i> <span>{{ app.request.locale|upper }}</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% if app.request.locale != 'en' %}<li><a href="{{ path('_language_change', {'lang':'en'}) }}">EN</a></li>{% endif %}
+                        {% if app.request.locale != 'hr' %}<li><a href="{{ path('_language_change', {'lang':'hr'}) }}">HR</a></li>{% endif %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

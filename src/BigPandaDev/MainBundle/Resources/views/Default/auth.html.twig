@@ -1,0 +1,21 @@
+{% extends 'BigPandaDevMainBundle:Default:base_bs.html.twig' %}
+
+{% block javascripts %}
+    <script>global={locale:'{{ app.request.locale }}'};</script>
+    <script src="{{ asset('js/base.js') }}"></script>
+    <script src="{{ asset('js/datepicker.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip({
+            placement : 'top'
+        });
+        bigPandaDP.initLocale();
+        bigPandaDP.initDatePicker();
+    });
+    </script>
+{% endblock %}
+
+{% block layout %}
+    {% block content %}{% endblock %}
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'BigPandaDevMainBundle:Default:base_bs.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/mainstyle.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script>global={locale:'{{ app.request.locale }}'};</script>
+    <script src="{{ asset('js/base.js') }}"></script>
+    <script src="{{ asset('js/datepicker.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip({
+            placement : 'top'
+        });
+        bigPandaDP.initLocale();
+        bigPandaDP.initDatePicker();
+    });
+    </script>
+{% endblock %}
+
+{% block layout %}
+    {% include 'BigPandaDevMainBundle:Navs:main.html.twig' %}
+
+    <div class="container" id="header">
+        <header class="jumbotron text-center">
+            <h1><span class="">Big panda</span> {{ 'is here'|trans }}!</h1>
+            <p>{{ 'Order a solution to your problem today'|trans }}!</p>
+            <a href="#how-to-order" class="btn btn-info btn-lg">{{ 'Check more'|trans }} <i class="fa fa-home fa-arrow-down"></i></a>
+        </header>
+    </div>
+
+    <div class="container" id="simple-description">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <i class="fa fa-magic point-icon"></i>
+                <h2>{{ 'Easy'|trans }}</h2>
+                <p>
+                   {{ 'We can do all work for you'|trans }}.
+                   {{ 'You set conditions, we accept it if they are acceptable'|trans }}.
+                   {{ 'We can find compromise in between yours and ours wishes'|trans }}.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-user-secret point-icon"></i>
+                <h2>{{ 'Discretely'|trans }}</h2>
+                <p>{{ 'All your orders are numbered and anonimous until you decide otherwise'|trans }}.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-lightbulb-o point-icon"></i>
+
+                <h2>{{ 'Innovative'|trans }}</h2>
+                <p>
+                    {{ 'A new way to solve your problem'|trans }}!
+                </p>
+            </div>
+            <div class="clearfix visible-lg"></div>
+        </div>
+    </div>
+
+
+
+    <div class="container" id="how-to-order">
+        <div class="row text-center">
+            <div class="col-md-3 col-md-offset-3">
+                <i class="fa fa-magic point-icon"></i>
+                <h2>{{ 'Order'|trans }}</h2>
+                <p>{{ 'Tell us what you need'|trans }}.</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fa fa-lightbulb-o point-icon"></i>
+
+                <h2>{{ 'Problem solved'|trans }}</h2>
+                <p>{{ 'Collect your solution'|trans }}!</p>
+            </div>
+            <div class="clearfix visible-lg"></div>
+        </div>
+    </div>
+
+    <footer id="contact" class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 text-center">
+                <hr class="small">
+                <p class="text-muted">Copyright &copy; BigPanda 2015. Webdesign by <a href="#">Matija Belec</a></p>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

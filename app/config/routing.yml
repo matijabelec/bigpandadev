@@ -1,0 +1,22 @@
+_logout:
+    path: /logout
+
+_bigPandaDev:
+    resource: "@BigPandaDevMainBundle/Controller/DefaultController.php"
+    type:     annotation
+_auth:
+    resource: "@BigPandaDevMainBundle/Controller/AuthController.php"
+    type:     annotation
+
+_settings:
+    resource: "@BigPandaDevMainBundle/Controller/SettingsController.php"
+    type:     annotation
+
+_crud:
+    resource: "@BigPandaDevMainBundle/Controller/CrudController.php"
+    type:     annotation
+
+_orders:
+    resource: "@BigPandaDevMainBundle/Controller/OrdersController.php"
+    type:     annotation
+

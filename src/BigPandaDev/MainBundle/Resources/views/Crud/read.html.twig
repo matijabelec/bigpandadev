@@ -1,0 +1,22 @@
+{# BigPandaDevMainBundle:Crud:read.html.twig #}
+{% block crud_read %}
+    <h2>{% block read_title %}{{ 'Details'|trans }}{% endblock %}</h2>    
+
+    <hr />
+
+    <div class="row">
+        <div class="panel-body {{ read_class|default('') }}">
+            {% block record %}{% endblock %}
+
+            <hr />
+
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    {% if back_link is defined %}
+                        <a href="{{ back_link }}" class="btn btn-warning">{{ 'Back'|trans }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+<div class="modal fade" id="{% block modal_id %}{% endblock %}" tabindex="-1" role="dialog"{# aria-labelledby="myModalLabel" aria-hidden="true"#}>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">{% block head %}{% endblock %}</div>
+            <div class="modal-body">{% block body %}{% endblock %}</div>
+            {% block footer_container %}
+                <div class="modal-footer">
+                    {% block footer %}{% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+{% block crud_list %}
+{#    <div class="container">
+        <div class="row {{ width_class|default('') }}">
+            <h2>{{ title|trans }}</h2>
+            
+            {% block crud_control_create %}
+                <div class="col-xs-12">
+                    <a href="{{ path(route_name, {'action':'create'}) }}" class="btn btn-default pull-right" role="button">{{ 'Create'|trans }}</a>
+                </div>
+            {% endblock %}
+            
+            <hr style="height:20px"/>
+            
+            <div class="col-xs-12">
+                {% block list %}
+                {% endblock %}
+                
+                {% block crud_controls %}
+                    <div>
+                        <a href="{{ path(route_name, {'action':record.id}) }}" class="btn btn-default" role="button">{{ 'View'|trans }}</a>
+                        <a href="{{ path(route_name, {'action':'edit', 'id':record.id}) }}" class="btn btn-default" role="button">{{ 'Edit'|trans }}</a>
+                        <a href="{{ path(route_name, {'action':'delete', 'id':record.id}) }}" class="btn btn-danger" role="button">{{ 'Delete'|trans }}</a>
+                    </div>
+                {% endblock %}
+                
+                {% for record in records %}
+                    <li class="list-group-item">
+
+
+                        {% block crud_controls %}
+                            <div>
+                                <a href="{{ path(route_name, {'action':record.id}) }}" class="btn btn-default" role="button">{{ 'View'|trans }}</a>
+                                <a href="{{ path(route_name, {'action':'edit', 'id':record.id}) }}" class="btn btn-default" role="button">{{ 'Edit'|trans }}</a>
+                                <a href="{{ path(route_name, {'action':'delete', 'id':record.id}) }}" class="btn btn-danger" role="button">{{ 'Delete'|trans }}</a>
+                            </div>
+                        {% endblock %}
+                    </li>
+                {% else %}
+                    <li class="list-group-item">
+                        {% block no_records_found %}<p>{{ 'No records found!'|trans }}</p>{% endblock %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>#}
+{% endblock %}

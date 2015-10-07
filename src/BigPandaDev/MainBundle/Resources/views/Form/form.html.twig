@@ -1,0 +1,6 @@
+{% block form_data %}
+    {{ form_start(form, {'attr': {'class': (attr.class|default('') ~ ' form-horizontal')|trim}}) }}
+    <legend>{{ form_name|default('Form name')|trans }}</legend>
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

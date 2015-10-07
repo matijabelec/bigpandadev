@@ -1,0 +1,48 @@
+# messages.hr.yml
+
+Id: Id
+No.: Rbr.
+
+Confirm delete: Potvrdi brisanje
+Are you sure: Jeste li sigurni
+Cancel: Odustani
+
+#form
+Form: Forma
+Form name: Naziv forme
+No records found!: Nema pronađenih zapisa!
+Details: Detalji
+Create: Dodaj
+View: Pregledaj
+Edit: Uredi
+Delete: Izbriši
+Back: Natrag
+Save: Spremi
+
+# auth
+Login: Prijava
+Logout: Odjava
+Username: Korisničko ime
+Password: Lozinka
+Login button: Prijavi se
+Register: Registriraj se
+
+# menu
+Profile: Profil
+Payments: Plaćanja
+Feedbacks: Informacije
+Statistics: Statistika
+Tasks: Zadaci
+Admin panel: Admin ploča
+Home: Početna
+About: O nama
+Contact: Kontakt
+Settings: Postavke
+
+#orders
+Orders: Narudžbe
+Order: Narudžba
+Order details: Detalji narudžbe
+Name: Naziv
+Date created: Datum kreiranja
+Deadline: Krajnji rok

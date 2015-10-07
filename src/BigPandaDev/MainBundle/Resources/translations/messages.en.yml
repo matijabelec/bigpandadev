@@ -1,0 +1,48 @@
+# messages.en.yml
+
+Id: Id
+No.: No.
+
+Confirm delete: Confirm delete
+Are you sure: Are you sure
+Cancel: Cancel
+
+#form
+Form: Form
+Form name: Form name
+No records found!: No records found!
+Details: Details
+Create: Create
+View: View
+Edit: Edit
+Delete: Delete
+Back: Back
+Save: Save
+
+# auth
+Login: Login
+Logout: Logout
+Username: Username
+Password: Password
+Login button: Login
+Register: Register
+
+# menu
+Profile: Profile
+Payments: Payments
+Feedbacks: Feedbacks
+Statistics: Statistics
+Tasks: Tasks
+Admin panel: Admin panel
+Home: Home
+About: About
+Contact: Contact
+Settings: Settings
+
+#orders
+Orders: Orders
+Order: Order
+Order details: Order details
+Name: Name
+Date created: Date created
+Deadline: Deadline

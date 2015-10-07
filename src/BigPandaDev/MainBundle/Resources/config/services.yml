@@ -1,0 +1,12 @@
+services:
+#    big_panda_dev_main.example:
+#        class: BigPandaDev\MainBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    form.type.datePicker:
+        class: BigPandaDev\MainBundle\Form\Type\DatePickerType
+        tags:
+            - { name: form.type, alias: datePicker }
+    form.type.dateTimePicker:
+        class: BigPandaDev\MainBundle\Form\Type\DateTimePickerType
+        tags:
+            - { name: form.type, alias: dateTimePicker }

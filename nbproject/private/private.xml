@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/BigPandaDev/MainBundle/Resources/views/Default/layout_table.html.twig</url>
+            <bookmark id="1">
+                <name/>
+                <line>38</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Entity/OrdersRepository.php</file>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Resources/views/Default/layout_table.html.twig</file>
+            <file>file:/var/www/html/sy/big_panda_app/web/css/mainstyle.css</file>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Resources/views/Orders/orders.html.twig</file>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Controller/DefaultController.php</file>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Resources/views/Crud/form.html.twig</file>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Controller/OrdersController.php</file>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Resources/views/Orders/order_form.html.twig</file>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Resources/views/Orders/order.html.twig</file>
+            <file>file:/var/www/html/sy/big_panda_app/src/BigPandaDev/MainBundle/Resources/views/Default/layout_form.html.twig</file>
+        </group>
+    </open-files>
+</project-private>

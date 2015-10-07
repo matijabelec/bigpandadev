@@ -1,0 +1,23 @@
+{% extends 'BigPandaDevMainBundle:Default:default.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h2>{{ title|default('Details')|trans }}</h2>
+        
+        <hr style="height:20px"/>
+
+        <div class="row">
+            {% if form is defined %}
+                {% block form_content %}{% endblock %}
+            {% else %}
+                {% block record_content %}{% endblock %}
+            {% endif %}
+        </div>
+        
+        <div class="row">
+            {% if back_link is defined %}
+                {% block add_new_item %}<a href="{{ back_link }}" class="btn btn-default">{{ 'Back'|trans }}</a>{% endblock %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

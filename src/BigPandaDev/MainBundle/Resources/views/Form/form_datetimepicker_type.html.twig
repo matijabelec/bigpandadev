@@ -1,0 +1,11 @@
+{% block dateTimePicker_widget %}
+{% spaceless %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' bigPandaDateTimePicker')|trim}) %}
+    <div class="form_row">
+        {{ form_errors(form.date) }}
+        {{ form_errors(form.time) }}
+        {{ form_widget(form.date, {'id' : id ~ '_date'}) }}
+        {{ form_widget(form.time, {'id' : id ~ '_time'}) }}
+    </div>
+{% endspaceless %}
+{% endblock %}

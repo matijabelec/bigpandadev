@@ -1,0 +1,63 @@
+/********************************************
+ *
+ *   Created on : Oct 1, 2015, 6:13:29 PM
+ *   Author     : Matija Belec
+ *   Copyright  : Matija Belec
+ *   Contact    : matijabelec1@gmail.com
+ *
+ ********************************************/
+
+/* body shifted because fixed top navigation */
+body{padding-top:90px;}
+
+.table-title{display:inline-block;}
+
+.point-icon{font-size:112pt;}
+
+/* crud action icons */
+.fa-sticky-note-o{color:#74cae3;}
+.fa-pencil-square-o{color:#399739;}
+.fa-times{color:#882a25;}
+.fa-sticky-note-o:hover{color:#2ac7d2;}
+.fa-pencil-square-o:hover{color:#3da23d;}
+.fa-times:hover{color:#AA3333;}
+/*.fa-plus{ color: #a2aab4;} .fa-plus:hover{ color:#f6f6f6;}*/
+
+/* modal dialog - close icon */
+.close{color:#f5f5f5;}
+.close:hover{color:#a2aab4;}
+
+/* deleted record icon */
+.delete-info{color:#AA3333;}
+
+/* homepage */
+#header{padding-top:100px;padding-bottom:100px;}
+#simple-description,
+#how-to-order{
+    padding-top: 80px;
+    padding-bottom: 80px;
+    width: 100%;
+}
+#simple-description{
+    background-color: #9c9c8a;
+    color: #020202;
+}
+
+
+@media all and (min-width:768px) {
+    #main-nav .navicon{
+        display: block;
+        text-align: center;
+        font-size: 16pt;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width:967px) {
+    #main-nav .navicon + span{
+        display: none;
+        font-size: 0;
+    }
+    #main-nav .navicon + span + .caret{
+        display: inherit;
+    }
+}
