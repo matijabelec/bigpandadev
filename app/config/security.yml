@@ -2,7 +2,7 @@
 # http://symfony.com/doc/current/book/security.html
 security:
     encoders:
-        BigPandaDev\MainBundle\Entity\User:
+        BigPandaDev\MainBundle\Entity\Users:
             algorithm: bcrypt
             cost: 12
 
@@ -14,7 +14,7 @@ security:
     providers:
         our_db_provider:
             entity:
-                class: BigPandaDevMainBundle:User
+                class: BigPandaDevMainBundle:Users
                 property: username
     
     firewalls:
@@ -47,6 +47,9 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         
         #- { path: ^/test, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        
+        - { path: ^/users, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_ADMIN }
         
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_USER }

@@ -1,0 +1,5 @@
+{% extends 'BigPandaDevMainBundle:Crud:form.html.twig' %}
+{% form_theme form 'BigPandaDevMainBundle:Form:fields_bs.html.twig' %}
+{% set back_link = path('_users') %}
+{% block form_title %}{{ 'User details'|trans }}{% endblock %}
+{% set form_class = 'well' %}

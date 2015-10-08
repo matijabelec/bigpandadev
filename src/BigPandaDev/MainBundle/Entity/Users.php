@@ -2,14 +2,14 @@
 namespace BigPandaDev\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @ORM\Table(name="app_users")
- * @ORM\Entity(repositoryClass="BigPandaDev\MainBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="BigPandaDev\MainBundle\Entity\UsersRepository")
  */
-class User implements UserInterface, \Serializable
+class Users implements AdvancedUserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -34,23 +34,27 @@ class User implements UserInterface, \Serializable
     private $email;
     
     /**
-     * @ORM\ManyToOne(targetEntity="UserRole")
+     * @ORM\ManyToOne(targetEntity="UserRoles")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $role;
     
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="deleted", type="boolean")
      */
-    private $isActive;
+    private $deleted = 0;
     
+    /**
+     * @ORM\Column(name="deleted_by", type="string", length=60, nullable=true)
+     */
+    private $deletedBy;
     
     
     
 
     public function __construct()
     {
-        $this->isActive = true;
+        $this->deleted = 0;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid(null, true));
     }
@@ -75,13 +79,33 @@ class User implements UserInterface, \Serializable
     {
         return $this->password;
     }
-
+    
     public function eraseCredentials()
     {
     }
     
     public function getLocale() {
         return null;
+    }
+    
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return !$this->deleted;
     }
 
     /** @see \Serializable::serialize() */
@@ -93,18 +117,21 @@ class User implements UserInterface, \Serializable
             $this->password,
             // see section on salt below
             // $this->salt,
+            !$this->deleted,
         ));
     }
 
     /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
+        $active = !$this->deleted;
         list (
             $this->id,
             $this->username,
             $this->password,
             // see section on salt below
             // $this->salt
+            $active,
         ) = unserialize($serialized);
     }
 
@@ -179,7 +206,7 @@ class User implements UserInterface, \Serializable
      */
     public function setIsActive($isActive)
     {
-        $this->isActive = $isActive;
+        $this->deleted = !$isActive;
 
         return $this;
     }
@@ -191,7 +218,7 @@ class User implements UserInterface, \Serializable
      */
     public function getIsActive()
     {
-        return $this->isActive;
+        return !$this->deleted;
     }
 
     /**
@@ -216,5 +243,74 @@ class User implements UserInterface, \Serializable
     public function getRole()
     {
         return $this->role;
+    }
+    
+    /**
+     * Set deleted
+     *
+     * @return User
+     */
+    public function setName($username)
+    {
+        $this->username;
+        return $this;
+    }
+    
+    /**
+     * Get deleted
+     *
+     * @return boolean
+     */
+    public function getName()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     *
+     * @return User
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set deletedBy
+     *
+     * @param string $deletedBy
+     *
+     * @return User
+     */
+    public function setDeletedBy($deletedBy)
+    {
+        $this->deletedBy = $deletedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedBy
+     *
+     * @return string
+     */
+    public function getDeletedBy()
+    {
+        return $this->deletedBy;
     }
 }
