@@ -1,14 +1,14 @@
 {% macro breadcrumb(name) %}
     {% set breadcrumb_nav_list = [
-        {'name':'home',         'label':'Home',         'href':path('_homepage')},
+        {'name':'home',         'label':'Home',             'href':path('_homepage')},
 
-        {'name':'orders',       'label':'Orders',       'href':path('_orders'),   'parent':'home'},
-        {'name':'order',        'label':'Order',        'href':'#',   'parent':'orders'},
+        {'name':'orders',       'parent':'home',        'label':'Orders', 'href':path('_orders')},
+        {'name':'order',        'parent':'orders',      'label':'Order details', 'href':'#'},
 
-        {'name':'code_lists',    'label':'Code lists',   'href':path('_homepage'),   'parent':'home'},
+        {'name':'code_lists',   'parent':'home',        'label':'Code lists', 'href':path('_homepage')},
 
-        {'name':'job_types',    'label':'Job types',    'href':path('_job_types'),   'parent':'code_lists'},
-        {'name':'job_type',     'label':'Job type',     'href':'#',   'parent':'job_types'}
+        {'name':'job_types',    'parent':'code_lists',  'label':'Job types', 'href':path('_job_types')},
+        {'name':'job_type',     'parent':'job_types',   'label':'Job type details', 'href':'#'                }
 
     ] %}
     
@@ -17,7 +17,7 @@
             {% if item.parent is defined %}
                 {{ _self.breadcrumb(item.parent) }} / 
             {% endif %}
-            <a href="{{ item.href }}">{{ item.name }}</a>
+            <a href="{{ item.href }}">{{ item.label|trans }}</a>
         {% endif %}
     {% endfor %}
 {% endmacro %}
