@@ -1,12 +1,11 @@
 {% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
+{% import 'BigPandaDevMainBundle:Navs:breadcrumb.html.twig' as bc %}
 {% set back_link = path('_orders') %}
 
 {% block panel_title 'Order details'|trans %}
 
 {% block content %}
-    <div>
-        <p><a href="{{ path('_homepage') }}">{{ 'Home'|trans }}</a> / <a href="{{ back_link }}">{{ 'Orders'|trans }}</a> / <a href="#">{{ 'Order details'|trans }}</a></p>
-    </div>
+    <div><p>{{ bc.breadcrumb('order') }}</p></div>
     
     {% if form is defined %}
         {% include 'BigPandaDevMainBundle:Orders:order_form.html.twig' %}

@@ -1,12 +1,11 @@
 {% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
+{% import 'BigPandaDevMainBundle:Navs:breadcrumb.html.twig' as bc %}
 {% set route_name = '_job_type' %}
 
 {% block panel_title 'Job types'|trans %}
 
 {% block content %}
-    <div>
-        <p><a href="{{ path('_homepage') }}">{{ 'Home'|trans }}</a> / <a href="#">{{ 'Job types'|trans }}</a></p>
-    </div>
+    <div><p>{{ bc.breadcrumb('job_types') }}</p></div>
     
     {% embed 'BigPandaDevMainBundle:Crud:table.html.twig' %}
         {% block table_title 'Job types'|trans %}

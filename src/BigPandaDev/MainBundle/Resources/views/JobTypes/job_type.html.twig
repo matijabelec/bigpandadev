@@ -1,12 +1,11 @@
 {% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
+{% import 'BigPandaDevMainBundle:Navs:breadcrumb.html.twig' as bc %}
 {% set back_link = path('_job_types') %}
 
 {% block panel_title 'Job type details'|trans %}
 
 {% block content %}
-    <div>
-        <p><a href="{{ path('_homepage') }}">{{ 'Home'|trans }}</a> / <a href="{{ back_link }}">{{ 'Job types'|trans }}</a> / <a href="#">{{ 'Job type details'|trans }}</a></p>
-    </div>
+    <div><p>{{ bc.breadcrumb('job_type') }}</p></div>
     
     {% if form is defined %}
         {% include 'BigPandaDevMainBundle:JobTypes:job_type_form.html.twig' %}
