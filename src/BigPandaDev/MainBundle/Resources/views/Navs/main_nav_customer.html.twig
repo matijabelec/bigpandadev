@@ -1,0 +1,24 @@
+<ul class="nav navbar-nav navbar-left">
+    <li><a href="{{ path('_home') }}"><i class="fa fa-home navicon"></i> <span>{{ 'Home'|trans }}</span></a></li>
+    <li><a href="{{ path('_orders') }}"><i class="fa fa-list-alt navicon"></i> <span>{{ 'Orders'|trans }}</span></a></li>
+    <li><a href="#paynaments"><i class="fa fa-cart-plus navicon"></i> <span>{{ 'Payments'|trans }}</span></a></li>
+    <li><a href="#feedbacks"><i class="fa fa-envelope navicon"></i> <span>{{ 'Feedbacks'|trans }}</span></a></li>
+    <li><a href="#stats"><i class="fa fa-line-chart navicon"></i> <span>{{ 'Statistics'|trans }}</span></a></li>
+    
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-circle-o navicon"></i> <span>{{ 'Help'|trans }}</span> <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="#"><i class="fa fa-question-circle"></i> <span>{{ 'About'|trans }}</span></a></li>
+            <li><a href="#"><i class="fa fa-envelope-o"></i> <span>{{ 'Contact'|trans }}</span></a></li>
+        </ul>
+    </li>
+    
+    
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe navicon"></i> <span>{{ app.request.locale|upper }}</span> <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            {% if app.request.locale != 'en' %}<li><a href="{{ path('_language_change', {'lang':'en'}) }}">EN</a></li>{% endif %}
+            {% if app.request.locale != 'hr' %}<li><a href="{{ path('_language_change', {'lang':'hr'}) }}">HR</a></li>{% endif %}
+        </ul>
+    </li>
+</ul>
