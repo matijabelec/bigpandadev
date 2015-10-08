@@ -1,8 +1,7 @@
-{% extends 'BigPandaDevMainBundle:Default:layout_table.html.twig' %}
+{% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
+{% set route_name = '_order' %}
 
-{% block head %}
-    <h2>{{ 'Orders'|trans }}</h2>
-{% endblock %}
+{% block panel_title 'Orders'|trans %}
 
 {% block content %}
     <div>
@@ -10,27 +9,19 @@
     </div>
     
     {% embed 'BigPandaDevMainBundle:Crud:table.html.twig' %}
-        {% set route_name = '_order' %}
-        {% set panel_title = 'Orders' %}
-        {#{% set records = null %}#}
-
-        {% set table_title = 'Orders'|trans %}
-        {% block no_records_found %}<td colspan=5>{{ parent() }}</td>{% endblock %}
-
+        {% block table_title 'Orders'|trans %}
+        
         {% block header %}
-            {% if app.user and is_granted('ROLE_ADMIN') %}
-                <th class="text-center">{{ 'Id'|trans }}</th>
-            {% endif %}
+            <th class="text-center">{{ 'No.'|trans }}</th>
             <th class="text-center">{{ 'Name'|trans }}</th>
             <th class="text-center">{{ 'Date created'|trans }}</th>
             <th class="text-center">{{ 'Deadline'|trans }}</th>
+            <th>&nbsp;</th>
         {% endblock %}
 
         {% block record %}
-            {% if app.user and is_granted('ROLE_ADMIN') %}
-                <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.id|e }}</td>
-            {% endif %}
-            <td class="text-left col-xs-5" style="vertical-align: middle;">
+            <td class="text-right" style="vertical-align: middle;">{{ loop.index }}</td>
+            <td class="text-left" style="vertical-align: middle;">
                 {{ record.name|e }}
                 {% if record.deleted == 1 %}
                     <span data-toggle="tooltip"
@@ -40,62 +31,28 @@
             <td class="text-right col-xs-2" style="vertical-align: middle;">{{ record.datecreated|date('d.m.Y.') }}</td>
             <td class="text-right col-xs-2" style="vertical-align: middle;">{{ record.deadline|date('d.m.Y.') }}</td>
         {% endblock %}
-        
-        {% block record_delete_data %}
-            data-target="#modal-confirm-delete"
-            data-order-id="{{ record.id }}"
-            data-order-name="{{ record.name|e }}"
-        {% endblock %}
-        {% block record_show_data %}
-            data-target="#modal-show-order"
-            data-order-id="{{ record.id }}"
-            data-order-name="{{ record.name|e }}"
-            data-order-date-created="{{ record.datecreated|date('d.m.Y.') }}"
-            data-order-deadline="{{ record.deadline|date('d.m.Y.') }}"
-        {% endblock %}
     {% endembed %}
 {% endblock %}
 
 {% block dialogs %}
     {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
-        {% block modal_id 'modal-confirm-delete' %}
-        {% block title 'Confirm delete'|trans %}
         {% block body %}
             <p>{{ 'Are you sure you want to delete order'|trans }} 
-                "<span class="order-name" style="font-weight: bold;"></span>" 
-                (<span class="order-id"></span>)?</p>
+                "<span class="record-name" style="font-weight: bold;"></span>" 
+                (<span class="record-id"></span>)?</p>
         {% endblock %}
     {% endembed %}
-    {% embed 'BigPandaDevMainBundle:Dialogs:modal_preview.html.twig' %}
-        {% block modal_id 'modal-show-order' %}
-        {% block title 'Order details'|trans %}
-        {% block body %}
-            <p>{{ 'Id'|trans }}: <span class="order-id"></span></p>
-            <p>{{ 'Name'|trans }}: <span class="order-name"></span></p>
-            <p>{{ 'Date created'|trans }}: <span class="order-date-created"></span></p>
-            <p>{{ 'Deadline'|trans }}: <span class="order-deadline"></span></p>
-        {% endblock %}
-    {% endembed %}
-{% endblock %}
 
-{% block javascript %}
-<script>
-$('#modal-confirm-delete').on('show.bs.modal', function(e) {
-    var order_id = $(e.relatedTarget).data('order-id');
-    var order_name = $(e.relatedTarget).data('order-name');
-    $(e.currentTarget).find('.order-id').text(order_id);
-    $(e.currentTarget).find('.order-name').text(order_name);
-});
-$('#modal-show-order').on('show.bs.modal', function(e) {
-    var order_id = $(e.relatedTarget).data('order-id');
-    var order_name = $(e.relatedTarget).data('order-name');
-    var order_date_created = $(e.relatedTarget).data('order-date-created');
-    var order_deadline = $(e.relatedTarget).data('order-deadline');
-    $(e.currentTarget).find('.order-id').text(order_id);
-    $(e.currentTarget).find('.order-name').text(order_name);
-    $(e.currentTarget).find('.order-date-created').text(order_date_created);
-    $(e.currentTarget).find('.order-deadline').text(order_deadline);
-});
-$("#modal-confirm-delete, #modal-show-order").draggable();
-</script>
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
+            {% block modal_id 'modal-undelete-confirm' %}
+            {% block title 'Confirm undelete' %}
+            {% block button_ok_label 'Undelete'|trans %}
+            {% block body %}
+                <p>{{ 'Are you sure you want to undelete order'|trans }} 
+                    "<span class="record-name" style="font-weight: bold;"></span>" 
+                    (<span class="record-id"></span>)?</p>
+            {% endblock %}
+        {% endembed %}
+    {% endif%}
 {% endblock %}

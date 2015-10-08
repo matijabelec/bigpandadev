@@ -1,0 +1,54 @@
+{% extends 'BigPandaDevMainBundle:Default:base_bs.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/mainstyle.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script>global={locale:'{{ app.request.locale }}'};</script>
+    <script src="{{ asset('js/base.js') }}"></script>
+    <script src="{{ asset('js/datepicker.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip({
+            placement : 'top'
+        });
+        bigPandaDP.initLocale();
+        bigPandaDP.initDatePicker();
+    });
+    
+    $('#modal-delete-confirm').on('show.bs.modal', function(e) {
+        $(e.currentTarget).find('.btn-ok').attr('href',$(e.relatedTarget).data('href'));
+        $(e.currentTarget).find('.record-id').text($(e.relatedTarget).data('record-id'));
+        $(e.currentTarget).find('.record-name').text($(e.relatedTarget).data('record-name'));
+    }).draggable();
+
+{% if app.user and is_granted('ROLE_ADMIN') %}
+    $('#modal-undelete-confirm').on('show.bs.modal', function(e) {
+        $(e.currentTarget).find('.btn-ok').attr('href',$(e.relatedTarget).data('href'));
+        $(e.currentTarget).find('.record-id').text($(e.relatedTarget).data('record-id'));
+        $(e.currentTarget).find('.record-name').text($(e.relatedTarget).data('record-name'));
+    }).draggable();
+{% endif %}
+
+</script>
+{% endblock %}
+
+{% block layout %}
+    {% include 'BigPandaDevMainBundle:Navs:main.html.twig' %}
+    
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% block head %}<h2>{% block panel_title '' %}</h2>{% endblock %}
+            </div>
+            <div class="panel-body">
+                {% block content %}{% endblock %}
+                <div class="clearfix visible-lg"></div>
+            </div>
+        </div>
+    </div>
+    
+    {% block dialogs %}{% endblock %}
+{% endblock %}

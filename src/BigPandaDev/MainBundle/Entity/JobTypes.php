@@ -61,7 +61,9 @@ class JobTypes
     
     public function __construct()
     {
-        
+        $this->dateCreated = new \DateTime('now');
+        $this->dateFrom = new \DateTime('now');
+        $this->dateTo = new \DateTime('now + 1 month');
     }
 
     /**

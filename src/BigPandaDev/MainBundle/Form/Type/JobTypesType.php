@@ -13,45 +13,15 @@ class JobTypesType extends AbstractType
         $builder
             ->add('id', 'text', array(
                 'disabled' => true,
-                'label_attr' => array(
-                    'class' => 'control-label'
-                ),
                 'attr' => array(
-                    'readonly' => true,
-                    'class' => 'form-control'
+                    'readonly' => true
                 )
             ))
-            ->add('name', 'text', array(
-                'label_attr' => array(
-                    'class' => 'control-label'
-                ),
-                'attr' => array(
-                    'class' => 'form-control'
-                )
-            ))
-            ->add('description', 'textarea', array(
-                'label_attr' => array(
-                    'class' => 'control-label'
-                ),
-                'attr' => array(
-                    'class' => 'form-control'
-                )
-            ))
-            ->add('date_created', 'datePicker', array(
-                'label_attr' => array(
-                    'class' => 'control-label'
-                ),
-                'attr' => array(
-                    'class' => 'form-control'
-                )
-            ))
+            ->add('name', 'text', array())
+            ->add('description', 'textarea', array())
+            ->add('date_from', 'datePicker', array())
+            ->add('date_to', 'datePicker', array())
             ->add('price', 'text', array(
-                'label_attr' => array(
-                    'class' => 'control-label'
-                ),
-                'attr' => array(
-                    'class' => 'form-control'
-                ),
                 'label' => 'Price (kn)'
             ))
         ;

@@ -1,8 +1,7 @@
-{% extends 'BigPandaDevMainBundle:Default:layout_table.html.twig' %}
+{% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
+{% set route_name = '_job_type' %}
 
-{% block head %}
-    <h2>{{ 'Job types'|trans }}</h2>
-{% endblock %}
+{% block panel_title 'Job types'|trans %}
 
 {% block content %}
     <div>
@@ -10,98 +9,54 @@
     </div>
     
     {% embed 'BigPandaDevMainBundle:Crud:table.html.twig' %}
-        {% set route_name = '_job_type' %}
-        {% set panel_title = 'Job types' %}
-        {#{% set records = null %}#}
-
-        {% set table_title = 'Job types'|trans %}
-        {% block no_records_found %}<td colspan=6>{{ parent() }}</td>{% endblock %}
-
+        {% block table_title 'Job types'|trans %}
+        
         {% block header %}
-            {% if app.user and is_granted('ROLE_ADMIN') %}
-                <th class="text-center">{{ 'Id'|trans }}</th>
-            {% endif %}
+            <th class="text-center">{{ 'No.'|trans }}</th>
             <th class="text-center">{{ 'Name'|trans }}</th>
             <th class="text-center">{{ 'Description'|trans }}</th>
-            <th class="text-center">{{ 'Date created'|trans }}</th>
-            <th class="text-center">{{ 'Price'|trans }}</th>
+            <th class="text-center">{{ 'Date from'|trans }}</th>
+            <th class="text-center">{{ 'Date to'|trans }}</th>
+            <th class="text-center">{{ 'Price'|trans }} (kn)</th>
+            <th>&nbsp;</th>
         {% endblock %}
 
         {% block record %}
-            {% if app.user and is_granted('ROLE_ADMIN') %}
-                <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.id|e }}</td>
-            {% endif %}
-            <td class="text-left col-xs-3" style="vertical-align: middle;">
+            <td class="text-right" style="vertical-align: middle;">{{ loop.index }}</td>
+            <td class="text-left col-xs-2" style="vertical-align: middle;">
                 {{ record.name|e }}
                 {% if record.deleted == 1 %}
                     <span data-toggle="tooltip"
                           data-original-title="{{ 'deleted'|trans }}"><i class="fa fa-dot-circle-o delete-info"></i></span>
                 {% endif %}
             </td>
-            <td class="text-right col-xs-4" style="vertical-align: middle;">{{ record.description|e }}</td>
-            <td class="text-right col-xs-2" style="vertical-align: middle;">{{ record.datecreated|date('d.m.Y.') }}</td>
-            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.price }} (kn)</td>
-        {% endblock %}
-        
-        {% block record_delete_data %}
-            data-target="#modal-confirm-delete"
-            data-job_type-id="{{ record.id }}"
-            data-job_type-name="{{ record.name|e }}"
-        {% endblock %}
-        {% block record_show_data %}
-            data-target="#modal-show-job_type"
-            data-job_type-id="{{ record.id }}"
-            data-job_type-name="{{ record.name|e }}"
-            data-job_type-description="{{ record.description|e }}"
-            data-job_type-date-created="{{ record.datecreated|date('d.m.Y.') }}"
-            data-job_type-price="{{ record.price }}"
+            <td class="text-left" style="vertical-align: middle;">{{ record.description|e }}</td>
+            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.datefrom|date('d.m.Y.') }}</td>
+            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.dateto|date('d.m.Y.') }}</td>
+            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.price }}</td>
         {% endblock %}
     {% endembed %}
 {% endblock %}
 
 {% block dialogs %}
     {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
-        {% block modal_id 'modal-confirm-delete' %}
-        {% block title 'Confirm delete'|trans %}
         {% block body %}
             <p>{{ 'Are you sure you want to delete job type'|trans }} 
-                "<span class="job_type-name" style="font-weight: bold;"></span>" 
-                (<span class="job_type-id"></span>)?</p>
+                "<span class="record-name" style="font-weight: bold;"></span>" 
+                (<span class="record-id"></span>)?</p>
         {% endblock %}
     {% endembed %}
-    {% embed 'BigPandaDevMainBundle:Dialogs:modal_preview.html.twig' %}
-        {% block modal_id 'modal-show-job_type' %}
-        {% block title 'Job type details'|trans %}
-        {% block body %}
-            <p>{{ 'Id'|trans }}: <span class="job_type-id"></span></p>
-            <p>{{ 'Name'|trans }}: <span class="job_type-name"></span></p>
-            <p>{{ 'Description'|trans }}: <span class="job_type-description"></span></p>
-            <p>{{ 'Date created'|trans }}: <span class="job_type-date-created"></span></p>
-            <p>{{ 'Price'|trans }}: <span class="job_type-price"></span> kn</p>
-        {% endblock %}
-    {% endembed %}
-{% endblock %}
 
-{% block javascript %}
-<script>
-$('#modal-confirm-delete').on('show.bs.modal', function(e) {
-    var job_type_id = $(e.relatedTarget).data('job_type-id');
-    var job_type_name = $(e.relatedTarget).data('job_type-name');
-    $(e.currentTarget).find('.job_type-id').text(job_type_id);
-    $(e.currentTarget).find('.job_type-name').text(job_type_name);
-});
-$('#modal-show-job_type').on('show.bs.modal', function(e) {
-    var job_type_id = $(e.relatedTarget).data('job_type-id');
-    var job_type_name = $(e.relatedTarget).data('job_type-name');
-    var job_type_description = $(e.relatedTarget).data('job_type-description');
-    var job_type_date_created = $(e.relatedTarget).data('job_type-date-created');
-    var job_type_price = $(e.relatedTarget).data('job_type-price');
-    $(e.currentTarget).find('.job_type-id').text(job_type_id);
-    $(e.currentTarget).find('.job_type-name').text(job_type_name);
-    $(e.currentTarget).find('.job_type-description').text(job_type_description);
-    $(e.currentTarget).find('.job_type-date-created').text(job_type_date_created);
-    $(e.currentTarget).find('.job_type-price').text(job_type_price);
-});
-$("#modal-confirm-delete, #modal-show-job_type").draggable();
-</script>
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
+            {% block modal_id 'modal-undelete-confirm' %}
+            {% block title 'Confirm undelete' %}
+            {% block button_ok_label 'Undelete'|trans %}
+            {% block body %}
+                <p>{{ 'Are you sure you want to undelete job type'|trans }} 
+                    "<span class="record-name" style="font-weight: bold;"></span>" 
+                    (<span class="record-id"></span>)?</p>
+            {% endblock %}
+        {% endembed %}
+    {% endif%}
 {% endblock %}

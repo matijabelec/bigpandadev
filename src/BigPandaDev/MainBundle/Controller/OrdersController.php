@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use BigPandaDev\MainBundle\Controller\BigPandaBaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\BrowserKit\Request;
 //use Symfony\Component\HttpFoundation\Response;
 
 use BigPandaDev\MainBundle\Entity\Orders;
@@ -20,9 +21,17 @@ class OrdersController extends BigPandaBaseController
      * @Route("/orders/{action}/{page}", defaults={"action"="","page"="1"}, name="_orders")
      * //@ _ Security ("has_role('ROLE_USER')")
      */
-    public function ordersAction($action, $page)
+    public function ordersAction(/*Request $request,*/ $action, $page)
     {
 //        $user = $this->getUser();
+        
+//        $isAjax = $request->isXmlHttpRequest();
+//        
+//        if($isAjax) {
+//            return $this->render('BigPandaDevMainBundle:Orders:orders.html.twig', array(
+//                'records' => null//$orders
+//            ));
+//        }
         
         switch($action) {
             case 'page':
@@ -33,10 +42,11 @@ class OrdersController extends BigPandaBaseController
         
         $ordersRepo = $this->getDoctrine()->getRepository('BigPandaDevMainBundle:Orders');
         
-        if($this->isGranted('ROLE_ADMIN') )
+        if($this->isGranted('ROLE_ADMIN') ) {
             $orders = $ordersRepo->findAllOrderedWithDeletedAtEnd();
-        else
+        } else {
             $orders = $ordersRepo->findAllActive();
+        }
         
         return $this->render('BigPandaDevMainBundle:Orders:orders.html.twig', array(
             'records' => $orders
@@ -56,8 +66,9 @@ class OrdersController extends BigPandaBaseController
             case 'edit':
                 $order = $repo->findOneActiveById($id);
                 if(!$order) {
-                    //throw $this->createNotFoundException('No order found for id ' . $id);
-                    return $this->redirectToRoute('_orders');
+                    return $this->render('BigPandaDevMainBundle:Orders:order.html.twig', array(
+                        'order' => $order
+                    ));
                 }
                 
             case 'create':
@@ -83,9 +94,9 @@ class OrdersController extends BigPandaBaseController
                 
             case 'delete':
                 $order = $repo->findOneActiveById($id);
+                
                 if(!$order) {
-                    //throw $this->createNotFoundException('No order found for id ' . $id);
-                    return $this->redirectToRoute('_orders');
+                    throw $this->createNotFoundException('No order found for id ' . $id);
                 }
                 
                 $order->setDeleted(1); //$em->remove($order);
@@ -93,7 +104,23 @@ class OrdersController extends BigPandaBaseController
                 $em->flush();
                 
                 return $this->redirectToRoute('_orders');
+            
+            case 'undelete':
+                if(!$this->isGranted('ROLE_ADMIN')) {
+                    throw $this->createNotFoundException('Page not found!');
+                }
+                    
+                $order = $repo->findOneById($id);
                 
+                if(!$order) {
+                    throw $this->createNotFoundException('No order found for id ' . $id);
+                }
+                
+                $order->setDeleted(0); //$em->remove($order);
+                $em->persist($order);
+                $em->flush();
+                
+                return $this->redirectToRoute('_orders');
             default:
                 $id = $action;
         }
@@ -102,7 +129,11 @@ class OrdersController extends BigPandaBaseController
             throw $this->createNotFoundException('No order found for id ' . $id);
         }
         
-        $order = $repo->findOneBy(array('deleted'=>'0', 'id'=>$id));
+        if($this->isGranted('ROLE_ADMIN') ) {
+            $order = $repo->findOneById($id);
+        } else {
+            $order = $repo->findOneActiveById($id);
+        }
         
         return $this->render('BigPandaDevMainBundle:Orders:order.html.twig', array(
             'order' => $order

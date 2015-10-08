@@ -55,9 +55,11 @@ class CodeListsController extends BigPandaBaseController
         switch($action) {
             case 'edit':
                 $job_type = $repo->findOneActiveById($id);
+                
                 if(!$job_type) {
-                    //throw $this->createNotFoundException('No job type found for id ' . $id);
-                    return $this->redirectToRoute('_job_types');
+                    return $this->render('BigPandaDevMainBundle:JobTypes:job_type.html.twig', array(
+                        'job_type' => $job_type
+                    ));
                 }
                 
             case 'create':
@@ -83,12 +85,29 @@ class CodeListsController extends BigPandaBaseController
                 
             case 'delete':
                 $job_type = $repo->findOneActiveById($id);
+                
                 if(!$job_type) {
-                    //throw $this->createNotFoundException('No order found for id ' . $id);
-                    return $this->redirectToRoute('_job_types');
+                    throw $this->createNotFoundException('No job type found for id ' . $id);
                 }
                 
                 $job_type->setDeleted(1); //$em->remove($job_type);
+                $em->persist($job_type);
+                $em->flush();
+                
+                return $this->redirectToRoute('_job_types');
+            
+            case 'undelete':
+                if(!$this->isGranted('ROLE_ADMIN')) {
+                    throw $this->createNotFoundException('Page not found!');
+                }
+                    
+                $job_type = $repo->findOneById($id);
+                
+                if(!$job_type) {
+                    throw $this->createNotFoundException('No job type found for id ' . $id);
+                }
+                
+                $job_type->setDeleted(0);
                 $em->persist($job_type);
                 $em->flush();
                 
@@ -102,7 +121,11 @@ class CodeListsController extends BigPandaBaseController
             throw $this->createNotFoundException('No job type found for id ' . $id);
         }
         
-        $job_type = $repo->findOneBy(array('deleted'=>'0', 'id'=>$id));
+        if($this->isGranted('ROLE_ADMIN') ) {
+            $job_type = $repo->findOneById($id);
+        } else {
+            $job_type = $repo->findOneActiveById($id);
+        }
         
         return $this->render('BigPandaDevMainBundle:JobTypes:job_type.html.twig', array(
             'job_type' => $job_type

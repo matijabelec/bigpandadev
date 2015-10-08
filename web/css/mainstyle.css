@@ -17,10 +17,10 @@ body{padding-top:90px;}
 /* crud action icons */
 .fa-sticky-note-o{color:#74cae3;}
 .fa-pencil-square-o{color:#399739;}
-.fa-times{color:#882a25;}
+.fa-remove{color:#882a25;}
 .fa-sticky-note-o:hover{color:#2ac7d2;}
 .fa-pencil-square-o:hover{color:#3da23d;}
-.fa-times:hover{color:#AA3333;}
+.fa-remove:hover{color:#AA3333;}
 /*.fa-plus{ color: #a2aab4;} .fa-plus:hover{ color:#f6f6f6;}*/
 
 /* modal dialog - close icon */

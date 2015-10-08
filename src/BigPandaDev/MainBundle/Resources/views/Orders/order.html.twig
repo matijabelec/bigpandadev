@@ -1,9 +1,7 @@
-{% extends 'BigPandaDevMainBundle:Default:layout_form.html.twig' %}
+{% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
 {% set back_link = path('_orders') %}
 
-{% block head %}
-    <h2>{{ 'Order details'|trans }}</h2>
-{% endblock %}
+{% block panel_title 'Order details'|trans %}
 
 {% block content %}
     <div>
