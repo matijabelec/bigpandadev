@@ -20,3 +20,7 @@ _orders:
     resource: "@BigPandaDevMainBundle/Controller/OrdersController.php"
     type:     annotation
 
+_codeLists:
+    resource: "@BigPandaDevMainBundle/Controller/CodeListsController.php"
+    type:     annotation
+
