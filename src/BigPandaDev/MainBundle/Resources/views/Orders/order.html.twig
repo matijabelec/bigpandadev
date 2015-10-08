@@ -1,12 +1,10 @@
 {% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
-{% import 'BigPandaDevMainBundle:Navs:breadcrumb.html.twig' as bc %}
 {% set back_link = path('_orders') %}
+{% set bc_name = 'order' %}
 
 {% block panel_title 'Order details'|trans %}
 
 {% block content %}
-    <div><p>{{ bc.breadcrumb('order') }}</p></div>
-    
     {% if form is defined %}
         {% include 'BigPandaDevMainBundle:Orders:order_form.html.twig' %}
     {% else %}

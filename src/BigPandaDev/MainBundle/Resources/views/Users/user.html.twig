@@ -1,12 +1,10 @@
 {% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
-{% import 'BigPandaDevMainBundle:Navs:breadcrumb.html.twig' as bc %}
 {% set back_link = path('_users') %}
+{% set bc_name = 'user' %}
 
 {% block panel_title 'User details'|trans %}
 
 {% block content %}
-    <div><p>{{ bc.breadcrumb('user') }}</p></div>
-    
     {% if form is defined %}
         {% include 'BigPandaDevMainBundle:Users:user_form.html.twig' %}
     {% else %}

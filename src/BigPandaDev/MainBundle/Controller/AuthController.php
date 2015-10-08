@@ -20,16 +20,16 @@ class AuthController extends Controller
         $encoded = $encoder->encodePassword($user, $plainPassword);
         $user->setPassword($encoded);*/
         
-        $content = array(
-            'title' => 'Admin',
-            'desc' => 'Admin desc'
-        );
-        
-        print_r($encoded);
-        
-        return $this->render('BigPandaDevMainBundle:Home:home.html.twig', array(
-            'content' => $content
-        ));
+//        $content = array(
+//            'title' => 'Admin',
+//            'desc' => 'Admin desc'
+//        );
+//        
+//        print_r($encoded);
+//        
+//        return $this->render('BigPandaDevMainBundle:Home:home.html.twig', array(
+//            'content' => $content
+//        ));
     }
     
     

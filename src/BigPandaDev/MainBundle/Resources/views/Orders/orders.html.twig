@@ -1,12 +1,10 @@
 {% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
-{% import 'BigPandaDevMainBundle:Navs:breadcrumb.html.twig' as bc %}
 {% set route_name = '_order' %}
+{% set bc_name = 'orders' %}
 
 {% block panel_title 'Orders'|trans %}
 
 {% block content %}
-    <div><p>{{ bc.breadcrumb('orders') }}</p></div>
-    
     {% embed 'BigPandaDevMainBundle:Crud:table.html.twig' %}
         {% block table_title 'Orders'|trans %}
         

@@ -23,6 +23,8 @@ body{padding-top:90px;}
 .fa-remove:hover{color:#AA3333;}
 /*.fa-plus{ color: #a2aab4;} .fa-plus:hover{ color:#f6f6f6;}*/
 
+.crud-create{margin-bottom: 12px;}
+
 /* modal dialog - close icon */
 .close{color:#f5f5f5;}
 .close:hover{color:#a2aab4;}

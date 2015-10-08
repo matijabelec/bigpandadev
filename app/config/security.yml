@@ -34,9 +34,12 @@ security:
             anonymous: ~
             http_basic: ~
             provider: our_db_provider
+            
             form_login:
                 login_path: /login
                 check_path: /login_check
+                #default_target_path: default_security_target
+                default_target_path: /home
             logout:
                 path:   /logout
                 target: /

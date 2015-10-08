@@ -5,11 +5,13 @@
         {'name':'orders',       'parent':'home',        'label':'Orders', 'href':path('_orders')},
         {'name':'order',        'parent':'orders',      'label':'Order details', 'href':'#'},
 
-        {'name':'code_lists',   'parent':'home',        'label':'Code lists', 'href':path('_homepage')},
+        {'name':'code_lists',   'parent':'home',        'label':'Code lists', 'href':'#'},
 
         {'name':'job_types',    'parent':'code_lists',  'label':'Job types', 'href':path('_job_types')},
-        {'name':'job_type',     'parent':'job_types',   'label':'Job type details', 'href':'#'                }
+        {'name':'job_type',     'parent':'job_types',   'label':'Job type details', 'href':'#'},
 
+        {'name':'users',    'parent':'code_lists',  'label':'Users', 'href':path('_users')},
+        {'name':'user',     'parent':'users',   'label':'User details', 'href':'#'}
     ] %}
     
     {% for item in breadcrumb_nav_list %}

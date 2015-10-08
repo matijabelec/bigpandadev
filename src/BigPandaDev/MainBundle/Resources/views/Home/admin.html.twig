@@ -1,1 +1,51 @@
-{# empty Twig template #}
+{% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
+{% set route_name = '_homepage' %}
+{% set bc_name = 'home' %}
+
+{% block panel_title 'Home'|trans %}
+
+{% block content %}
+{#    {% embed 'BigPandaDevMainBundle:Crud:table.html.twig' %}
+        {% block table_title 'Users'|trans %}
+        
+        {% block header %}
+            <th class="text-center">{{ 'No.'|trans }}</th>
+            <th class="text-center">{{ 'Name'|trans }}</th>
+            <th>&nbsp;</th>
+        {% endblock %}
+
+        {% block record %}
+            <td class="text-right" style="vertical-align: middle;">{{ loop.index }}</td>
+            <td class="text-left col-xs-2" style="vertical-align: middle;">
+                {{ record.name|e }}
+                {% if record.deleted == 1 %}
+                    <span data-toggle="tooltip"
+                          data-original-title="{{ 'deleted'|trans }}"><i class="fa fa-dot-circle-o delete-info"></i></span>
+                {% endif %}
+            </td>
+        {% endblock %}
+    {% endembed %}#}
+{% endblock %}
+
+{% block dialogs %}
+{#    {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
+        {% block body %}
+            <p>{{ 'Are you sure you want to delete user'|trans }} 
+                "<span class="record-name" style="font-weight: bold;"></span>" 
+                (<span class="record-id"></span>)?</p>
+        {% endblock %}
+    {% endembed %}
+
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
+            {% block modal_id 'modal-undelete-confirm' %}
+            {% block title 'Confirm undelete' %}
+            {% block button_ok_label 'Undelete'|trans %}
+            {% block body %}
+                <p>{{ 'Are you sure you want to undelete user'|trans }} 
+                    "<span class="record-name" style="font-weight: bold;"></span>" 
+                    (<span class="record-id"></span>)?</p>
+            {% endblock %}
+        {% endembed %}
+    {% endif%}#}
+{% endblock %}

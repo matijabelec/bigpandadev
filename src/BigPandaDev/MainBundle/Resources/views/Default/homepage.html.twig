@@ -23,15 +23,7 @@
 {% block layout %}
     {% include 'BigPandaDevMainBundle:Navs:main.html.twig' %}
 
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-        {% include 'BigPandaDevMainBundle:Home:admin.html.twig' %}
-    {% elseif app.user and is_granted('ROLE_EMPLOYEE') %}
-        {% include 'BigPandaDevMainBundle:Home:employee.html.twig' %}
-    {% elseif app.user and is_granted('ROLE_CUSTOMER') %}
-        {% include 'BigPandaDevMainBundle:Home:customer.html.twig' %}
-    {% else %}
-        {% include 'BigPandaDevMainBundle:Home:public.html.twig' %}
-    {% endif%}
+    {% include 'BigPandaDevMainBundle:Home:public.html.twig' %}
 
     <footer id="contact" class="container">
         <div class="row">

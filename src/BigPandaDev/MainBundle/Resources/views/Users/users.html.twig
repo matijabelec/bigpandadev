@@ -1,12 +1,10 @@
 {% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
-{% import 'BigPandaDevMainBundle:Navs:breadcrumb.html.twig' as bc %}
 {% set route_name = '_user' %}
+{% set bc_name = 'users' %}
 
 {% block panel_title 'Users'|trans %}
 
 {% block content %}
-    <div><p>{{ bc.breadcrumb('users') }}</p></div>
-    
     {% embed 'BigPandaDevMainBundle:Crud:table.html.twig' %}
         {% block table_title 'Users'|trans %}
         
