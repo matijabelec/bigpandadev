@@ -46,7 +46,7 @@ class OrdersController extends BigPandaBaseController
     /**
      * @Route("/order/{action}/{id}", defaults={"action"="","id"=""}, name="_order")
      */
-    public function createOrderAction(Request $request, $action, $id)
+    public function orderAction(Request $request, $action, $id)
     {
         $doc = $this->getDoctrine();
         $em = $doc->getManager();

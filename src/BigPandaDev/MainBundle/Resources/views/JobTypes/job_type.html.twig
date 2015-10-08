@@ -1,0 +1,30 @@
+{% extends 'BigPandaDevMainBundle:Default:layout_form.html.twig' %}
+{% set back_link = path('_job_types') %}
+
+{% block head %}
+    <h2>{{ 'Job type details'|trans }}</h2>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p><a href="{{ path('_homepage') }}">{{ 'Home'|trans }}</a> / <a href="{{ back_link }}">{{ 'Job types'|trans }}</a> / <a href="#">{{ 'Job type details'|trans }}</a></p>
+    </div>
+    
+    {% if form is defined %}
+        {% include 'BigPandaDevMainBundle:JobTypes:job_type_form.html.twig' %}
+    {% else %}
+        {% embed "BigPandaDevMainBundle:Crud:read.html.twig" %}
+            {% block read_title %}{{ 'Job type details'|trans }}{% endblock %}
+            {% block record %}
+                {% if job_type is defined and job_type is not null %}
+                    <h2>#{{ job_type.id }}: {{ job_type.name|e }}</h2>
+                    <p>{{ 'Description'|trans }}: {{ job_type.description|e }}</p>
+                    <p>{{ 'Date created'|trans }}: {{ job_type.datecreated|date('d.m.Y.') }}</p>
+                    <p>{{ 'Price'|trans }}: {{ job_type.price }} kn</p>
+                {% else %}
+                    <p>No job type with that id found!</p>
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+{% endblock %}
