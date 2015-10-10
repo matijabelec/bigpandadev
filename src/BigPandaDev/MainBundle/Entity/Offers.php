@@ -62,6 +62,27 @@ class Offers
      **/
     private $jobType;
     
+    /**
+     * @ORM\Column(name="date_available_from", type="datetime", nullable=true)
+     */
+    private $dateAvailableFrom;
+    
+    /**
+     * @ORM\Column(name="date_available_to", type="datetime", nullable=true)
+     */
+    private $dateAvailableTo;
+    
+    /**
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=4, nullable=true)
+     */
+    private $price;
+    
+    /**
+     * @ORM\Column(name="status", type="integer", nullable=true)
+     */
+    private $status;
+    
+    
     
     public function __construct()
     {
@@ -294,5 +315,106 @@ class Offers
     public function getJobType()
     {
         return $this->jobType;
+    }
+
+    /**
+     * Set dateAvailableTo
+     *
+     * @param \DateTime $dateAvailableTo
+     *
+     * @return Offers
+     */
+    public function setDateAvailableTo($dateAvailableTo)
+    {
+        $this->dateAvailableTo = $dateAvailableTo;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAvailableTo
+     *
+     * @return \DateTime
+     */
+    public function getDateAvailableTo()
+    {
+        return $this->dateAvailableTo;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Offers
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
+    
+    public function __toString() {
+        return $this->name . ' (' . $this->id . ')';
+    }
+
+    /**
+     * Set dateAvailableFrom
+     *
+     * @param \DateTime $dateAvailableFrom
+     *
+     * @return Offers
+     */
+    public function setDateAvailableFrom($dateAvailableFrom)
+    {
+        $this->dateAvailableFrom = $dateAvailableFrom;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAvailableFrom
+     *
+     * @return \DateTime
+     */
+    public function getDateAvailableFrom()
+    {
+        return $this->dateAvailableFrom;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     *
+     * @return Offers
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

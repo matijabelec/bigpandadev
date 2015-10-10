@@ -1,0 +1,23 @@
+{% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
+{% set back_link = path('_offers') %}
+{% set bc_name = 'offer' %}
+
+{% block panel_title 'Offer details'|trans %}
+
+{% block content %}
+    {% if form is defined %}
+        {% include 'BigPandaDevMainBundle:Offers:offer_form.html.twig' %}
+    {% else %}
+        {% embed "BigPandaDevMainBundle:Crud:read.html.twig" %}
+            {% block read_title %}{{ 'Offer details'|trans }}{% endblock %}
+            {% block record %}
+                {% if order is defined and offer is not null %}
+                    <h2>#{{ offer.id }}: {{ offer.name|e }}</h2>
+                    <p>{{ 'Date created'|trans }}: {{ offer.datecreated|date('d.m.Y.') }}</p>
+                {% else %}
+                    <p>No offer with that id found!</p>
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+{% endblock %}

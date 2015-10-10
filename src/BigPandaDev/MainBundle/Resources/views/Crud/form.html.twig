@@ -8,9 +8,11 @@
             <div class=" {{ form_class|default('') }}">
                 {% block form_data %}
                     {{ form_start(form) }}
-
-                    {{ form_widget(form) }}
-
+                    
+                    {% block custom_form %}
+                        {{ form_widget(form) }}
+                    {% endblock %}
+                    
                     <hr />
 
                     <div class="row">

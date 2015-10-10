@@ -1,12 +1,14 @@
 <div class="container-fluid">
-    <a href="{{ path(route_name, {'action':'create'}) }}" class="btn btn-primary pull-right crud-create"
-       role="button" 
-       data-toggle="tooltip" 
-       data-original-title="{{ 'Create'|trans }}"><i class="fa fa-plus"></i> {{ 'Create'|trans}}</a>
+    {% block create_action %}
+        <a href="{{ path(route_name, {'action':'create'}) }}" class="btn btn-primary pull-right crud-create"
+           role="button" 
+           data-toggle="tooltip" 
+           data-original-title="{{ 'Create'|trans }}"><i class="fa fa-plus"></i> {{ 'Create'|trans}}</a>
+    {% endblock %}
     
     <div class="clearfix"></div>
     
-    <div class="table-responsive"> 
+    <div class="table-responsive">
         <table class="table table-hover table-striped table-bordered">
             <thead>
                 <tr>{% block header %}{% endblock %}</tr>
@@ -19,22 +21,24 @@
                             {% block record_actions %}
                                 <td class="text-center text-nowrap" style="font-size: 20px; vertical-align: middle;">
                                         {% if record.deleted == 0 %}
-                                            <a href="{{ path(route_name, {'action':record.id}) }}"
-                                               data-toggle="tooltip"
-                                               data-original-title="{{ 'View'|trans }}">
-                                                <i class="fa fa-sticky-note-o"></i></a>
-                                            <a href="{{ path(route_name, {'action':'edit', 'id':record.id}) }}"
-                                               data-toggle="tooltip"
-                                               data-original-title="{{ 'Edit'|trans }}"><i class="fa fa-pencil-square-o"></i></a>
-                                            <a role="button"
-                                               data-toggle="modal"
-                                               data-href="{{ path(route_name, {'action':'delete', 'id':record.id}) }}"
-                                               data-record-id="{{ record.id }}"
-                                               data-record-name="{{ record.name|e }}"
-                                               data-target="#modal-delete-confirm"
-                                               data-toggle="tooltip"><i class="fa fa-remove"
-                                                                        data-original-title="{{ 'Delete'|trans }}"
-                                                                        data-toggle="tooltip"></i></a>
+                                            {% block record_actions_inside %}
+                                                <a href="{{ path(route_name, {'action':record.id}) }}"
+                                                   data-toggle="tooltip"
+                                                   data-original-title="{{ 'View'|trans }}">
+                                                    <i class="fa fa-sticky-note-o"></i></a>
+                                                <a href="{{ path(route_name, {'action':'edit', 'id':record.id}) }}"
+                                                   data-toggle="tooltip"
+                                                   data-original-title="{{ 'Edit'|trans }}"><i class="fa fa-pencil-square-o"></i></a>
+                                                <a role="button"
+                                                   data-toggle="modal"
+                                                   data-href="{{ path(route_name, {'action':'delete', 'id':record.id}) }}"
+                                                   data-record-id="{{ record.id }}"
+                                                   data-record-name="{{ record.name|e }}"
+                                                   data-target="#modal-delete-confirm"
+                                                   data-toggle="tooltip"><i class="fa fa-remove"
+                                                                            data-original-title="{{ 'Delete'|trans }}"
+                                                                            data-toggle="tooltip"></i></a>
+                                            {% endblock %}
                                         {% else %}
                                             <a role="button"
                                                data-toggle="modal"
@@ -58,4 +62,9 @@
             </tbody>
         </table>
     </div>
+    
+    <div class="clearfix"></div>
+    
+    {% import 'BigPandaDevMainBundle:Crud:extras.html.twig' as pg %}
+    {% if pagination is defined %}{{ pg.pagination(pagination, {'route_name':'_offers'}) }}{% endif %}
 </div>

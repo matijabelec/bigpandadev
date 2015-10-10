@@ -16,6 +16,10 @@ _crud:
     resource: "@BigPandaDevMainBundle/Controller/CrudController.php"
     type:     annotation
 
+_offers:
+    resource: "@BigPandaDevMainBundle/Controller/OffersController.php"
+    type:     annotation
+
 _orders:
     resource: "@BigPandaDevMainBundle/Controller/OrdersController.php"
     type:     annotation

@@ -1,0 +1,55 @@
+{% macro pagination(pg, options) %}
+    <div class="row">
+        <div class="{% if pg.pages > 1 %}col-xs-12 col-sm-6{% else %}col-xs-12{% endif %} text-left">{{ 'Number of records'|trans }}: {{ pg.count }}</div>
+
+        {% if pg.pages > 1 %}
+            {% spaceless %}
+            <div class="col-xs-12 col-sm-6 text-right">
+                {% if pg.pages < 6 %}
+                    {% for p in 1..pg.pages %}
+                        {% if p == pg.page %}
+                            <a class="btn" href="#">{{ p }}</a>
+                        {% else %}
+                            <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% if pg.page<4 %}
+                        {% for p in 1 .. 4 %}
+                            {% if p == pg.page %}
+                                <a class="btn" href="#">{{ p }}</a>
+                            {% else %}
+                                <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        ...
+                        <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':pg.pages}) }}">{{ pg.pages }}</a>
+                    {% elseif pg.page>pg.pages-3 %}
+                        <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':1}) }}">{{ 1 }}</a>
+                        ...
+                        {% for p in pg.pages-3 .. pg.pages %}
+                            {% if p == pg.page %}
+                                <a class="btn" href="#">{{ p }}</a>
+                            {% else %}
+                                <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':1}) }}">{{ 1 }}</a>
+                        ...
+                        {% for p in pg.page-1 .. pg.page+1 %}
+                            {% if p == pg.page %}
+                                <a class="btn" href="#">{{ p }}</a>
+                            {% else %}
+                                <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        ...
+                        <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':pg.pages}) }}">{{ pg.pages }}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endspaceless %}
+        {% endif %}
+    </div>
+{% endmacro %}

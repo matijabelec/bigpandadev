@@ -1,0 +1,50 @@
+{% extends 'BigPandaDevMainBundle:Crud:form.html.twig' %}
+{% form_theme form 'BigPandaDevMainBundle:Form:fields_bs.html.twig' %}
+{% set back_link = path('_offers') %}
+{% block form_title %}{{ 'Offer details'|trans }}{% endblock %}
+{% set form_class = 'well' %}
+
+{% block custom_form %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <div class="row">
+                
+                {% if form.id is defined %}
+                    <div class="col-xs-12 col-sm-3">
+                        {{ form_row(form.id) }}
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        {{ form_row(form.name) }}
+                    </div>
+                {% else %}
+                    <div class="col-xs-12">
+                        {{ form_row(form.name) }}
+                    </div>
+                {% endif %}
+
+
+        {#        <div class="col-xs-12 col-sm-4">
+                    {{ form_row(form.price) }}
+                </div>#}
+
+                <div class="col-xs-12 col-sm-12">
+                    {{ form_row(form.job_type) }}
+                </div>
+                
+                <div class="col-xs-12 col-sm-6">
+                    {{ form_row(form.status) }}
+                </div>
+                
+                <div class="col-xs-12 col-sm-6">
+                    {{ form_row(form.price) }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-6">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    
+    {{ form_widget(form) }}
+{% endblock %}

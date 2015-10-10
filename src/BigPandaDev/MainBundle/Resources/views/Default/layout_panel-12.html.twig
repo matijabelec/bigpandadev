@@ -46,7 +46,9 @@
             <div class="panel-body">
                 {% if bc_name is defined %}
                     {% import 'BigPandaDevMainBundle:Navs:breadcrumb.html.twig' as bc %}
-                    <div>&gt; {{ bc.breadcrumb(bc_name) }}</div>
+                    <div class="well">
+                        &gt; {{ bc.breadcrumb(bc_name) }}
+                    </div>
                 {% endif %}
                 {% block content %}{% endblock %}
                 <div class="clearfix visible-lg"></div>

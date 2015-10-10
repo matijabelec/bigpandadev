@@ -2,6 +2,9 @@
     {% set breadcrumb_nav_list = [
         {'name':'home',         'label':'Home',             'href':path('_home')},
 
+        {'name':'offers',       'parent':'home',        'label':'Offers', 'href':path('_offers')},
+        {'name':'offer',        'parent':'offers',      'label':'Offer details', 'href':'#'},
+
         {'name':'orders',       'parent':'home',        'label':'Orders', 'href':path('_orders')},
         {'name':'order',        'parent':'orders',      'label':'Order details', 'href':'#'},
 

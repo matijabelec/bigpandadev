@@ -266,4 +266,9 @@ class JobTypes
     {
         return $this->deletedBy;
     }
+    
+    
+    public function __toString() {
+        return $this->name . ' (' . $this->id . ')';
+    }
 }
