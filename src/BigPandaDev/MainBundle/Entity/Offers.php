@@ -5,10 +5,10 @@ namespace BigPandaDev\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="orders")
- * @ORM\Entity(repositoryClass="BigPandaDev\MainBundle\EntityRepository\OrdersRepository")
+ * @ORM\Table(name="offers")
+ * @ORM\Entity(repositoryClass="BigPandaDev\MainBundle\EntityRepository\OffersRepository")
  */
-class Orders
+class Offers
 {
     /**
      * @ORM\Column(type="integer")
@@ -45,12 +45,16 @@ class Orders
     private $dateDeleted;
     
     /**
-     * @ORM\Column(type="integer", length=1)
+     * @ORM\Column(type="integer", length=1, nullable=false)
      */
     private $deleted = 0;
     
     
     
+    /**
+     * @ORM\Column(type="string", length=140, nullable=false)
+     */
+    private $title;
     
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -58,11 +62,10 @@ class Orders
     private $description;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Offers")
-     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="JobTypes")
+     * @ORM\JoinColumn(name="job_type_id", referencedColumnName="id")
      **/
-    private $offer;
-    
+    private $jobType;
     
     
     public function __construct()
@@ -70,7 +73,6 @@ class Orders
         $this->dateCreated = new \DateTime('NOW');
     }
 
-    
 
 
     /**
@@ -88,7 +90,7 @@ class Orders
      *
      * @param string $name
      *
-     * @return Orders
+     * @return Offers
      */
     public function setName($name)
     {
@@ -112,7 +114,7 @@ class Orders
      *
      * @param \DateTime $dateCreated
      *
-     * @return Orders
+     * @return Offers
      */
     public function setDateCreated($dateCreated)
     {
@@ -136,7 +138,7 @@ class Orders
      *
      * @param \DateTime $dateDeleted
      *
-     * @return Orders
+     * @return Offers
      */
     public function setDateDeleted($dateDeleted)
     {
@@ -160,7 +162,7 @@ class Orders
      *
      * @param integer $deleted
      *
-     * @return Orders
+     * @return Offers
      */
     public function setDeleted($deleted)
     {
@@ -180,11 +182,35 @@ class Orders
     }
 
     /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Offers
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * Set description
      *
      * @param string $description
      *
-     * @return Orders
+     * @return Offers
      */
     public function setDescription($description)
     {
@@ -208,7 +234,7 @@ class Orders
      *
      * @param \BigPandaDev\MainBundle\Entity\Users $createdBy
      *
-     * @return Orders
+     * @return Offers
      */
     public function setCreatedBy(\BigPandaDev\MainBundle\Entity\Users $createdBy = null)
     {
@@ -232,7 +258,7 @@ class Orders
      *
      * @param \BigPandaDev\MainBundle\Entity\Users $deletedBy
      *
-     * @return Orders
+     * @return Offers
      */
     public function setDeletedBy(\BigPandaDev\MainBundle\Entity\Users $deletedBy = null)
     {
@@ -252,26 +278,26 @@ class Orders
     }
 
     /**
-     * Set offer
+     * Set jobType
      *
-     * @param \BigPandaDev\MainBundle\Entity\Offers $offer
+     * @param \BigPandaDev\MainBundle\Entity\JobTypes $jobType
      *
-     * @return Orders
+     * @return Offers
      */
-    public function setOffer(\BigPandaDev\MainBundle\Entity\Offers $offer = null)
+    public function setJobType(\BigPandaDev\MainBundle\Entity\JobTypes $jobType = null)
     {
-        $this->offer = $offer;
+        $this->jobType = $jobType;
 
         return $this;
     }
 
     /**
-     * Get offer
+     * Get jobType
      *
-     * @return \BigPandaDev\MainBundle\Entity\Offers
+     * @return \BigPandaDev\MainBundle\Entity\JobTypes
      */
-    public function getOffer()
+    public function getJobType()
     {
-        return $this->offer;
+        return $this->jobType;
     }
 }

@@ -1,27 +1,11 @@
 <?php
 
-namespace BigPandaDev\MainBundle\Entity;
+namespace BigPandaDev\MainBundle\EntityRepository;
 
 use Doctrine\ORM\EntityRepository;
 
-class OrdersRepository extends EntityRepository
-{
-//    public function findOneByIdJoinedToCategory($id)
-//    {
-//        $query = $this->getEntityManager()
-//            ->createQuery(
-//                'SELECT p, c FROM AppBundle:Product p
-//                JOIN p.category c
-//                WHERE p.id = :id'
-//            )->setParameter('id', $id);
-//
-//        try {
-//            return $query->getSingleResult();
-//        } catch (\Doctrine\ORM\NoResultException $e) {
-//            return null;
-//        }
-//    }
-    
+class TasksRepository extends EntityRepository
+{   
     // active records
     public function findAllActive()
     {
@@ -66,9 +50,9 @@ class OrdersRepository extends EntityRepository
     
     public function findAllOrderedWithDeletedAtEnd() {
         $query = $this->getEntityManager()
-                      ->createQuery('SELECT o 
-                                    FROM BigPandaDevMainBundle:Orders o
-                                    ORDER BY o.deleted ASC');
+                      ->createQuery('SELECT t 
+                                    FROM BigPandaDevMainBundle:Tasks t
+                                    ORDER BY t.deleted ASC');
         try {
             return $query->getResult();
         } catch (\Doctrine\ORM\NoResultException $e) {

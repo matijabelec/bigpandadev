@@ -1,6 +1,6 @@
 <?php
 
-namespace BigPandaDev\MainBundle\Entity;
+namespace BigPandaDev\MainBundle\EntityRepository;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -18,8 +18,8 @@ class OrdersType extends AbstractType
                 )
             ))
             ->add('name', 'text', array())
-            ->add('date_created', 'datePicker', array())
-            ->add('deadline', 'datePicker', array())
+            //->add('date_created', 'datePicker', array())
+            ->add('description', 'text', array())
         ;
     }
     

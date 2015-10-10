@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use BigPandaDev\MainBundle\Entity\JobTypes;
 use BigPandaDev\MainBundle\Form\Type\JobTypesType;
-use BigPandaDev\MainBundle\Form\Type\Users;
+use BigPandaDev\MainBundle\Entity\Users;
 use BigPandaDev\MainBundle\Form\Type\UsersType;
 
 class CodeListsController extends BigPandaBaseController

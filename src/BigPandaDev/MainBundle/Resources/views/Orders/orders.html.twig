@@ -12,7 +12,7 @@
             <th class="text-center">{{ 'No.'|trans }}</th>
             <th class="text-center">{{ 'Name'|trans }}</th>
             <th class="text-center">{{ 'Date created'|trans }}</th>
-            <th class="text-center">{{ 'Deadline'|trans }}</th>
+            <th class="text-center">{{ 'Created by'|trans }}</th>
             <th>&nbsp;</th>
         {% endblock %}
 
@@ -26,7 +26,7 @@
                 {% endif %}
             </td>
             <td class="text-right col-xs-2" style="vertical-align: middle;">{{ record.datecreated|date('d.m.Y.') }}</td>
-            <td class="text-right col-xs-2" style="vertical-align: middle;">{{ record.deadline|date('d.m.Y.') }}</td>
+            <td class="text-right col-xs-2" style="vertical-align: middle;">{{ record.createdby.username }}</td>
         {% endblock %}
     {% endembed %}
 {% endblock %}

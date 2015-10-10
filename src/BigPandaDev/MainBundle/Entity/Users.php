@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @ORM\Table(name="app_users")
- * @ORM\Entity(repositoryClass="BigPandaDev\MainBundle\Entity\UsersRepository")
+ * @ORM\Entity(repositoryClass="BigPandaDev\MainBundle\EntityRepository\UsersRepository")
  */
 class Users implements AdvancedUserInterface, \Serializable
 {
@@ -228,7 +228,7 @@ class Users implements AdvancedUserInterface, \Serializable
      *
      * @return User
      */
-    public function setRole(\BigPandaDev\MainBundle\Entity\UserRole $role = null)
+    public function setRole(\BigPandaDev\MainBundle\Entity\UserRoles $role = null)
     {
         $this->role = $role;
 

@@ -74,6 +74,7 @@ class OrdersController extends BigPandaBaseController
             case 'create':
                 if(!isset($order) ) {
                     $order = new Orders();
+                    $order->setCreatedBy($this->getUser() );
                 }
                 
                 $form = $this->createForm(new OrdersType(), $order);

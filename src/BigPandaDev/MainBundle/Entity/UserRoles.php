@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="app_user_roles")
- * @ORM\Entity(repositoryClass="BigPandaDev\MainBundle\Entity\UserRolesRepository")
+ * @ORM\Entity(repositoryClass="BigPandaDev\MainBundle\EntityRepository\UserRolesRepository")
  */
 class UserRoles
 {

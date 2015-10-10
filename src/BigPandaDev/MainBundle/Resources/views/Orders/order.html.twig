@@ -14,7 +14,6 @@
                 {% if order is defined and order is not null %}
                     <h2>#{{ order.id }}: {{ order.name|e }}</h2>
                     <p>{{ 'Date created'|trans }}: {{ order.datecreated|date('d.m.Y.') }}</p>
-                    <p>{{ 'Deadline'|trans }}: {{ order.deadline|date('d.m.Y.') }}</p>
                 {% else %}
                     <p>No order with that id found!</p>
                 {% endif %}

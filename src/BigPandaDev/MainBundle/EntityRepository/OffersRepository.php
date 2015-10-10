@@ -1,11 +1,11 @@
 <?php
 
-namespace BigPandaDev\MainBundle\Entity;
+namespace BigPandaDev\MainBundle\EntityRepository;
 
 use Doctrine\ORM\EntityRepository;
 
-class JobTypesRepository extends EntityRepository
-{
+class OffersRepository extends EntityRepository
+{   
     // active records
     public function findAllActive()
     {
@@ -51,7 +51,7 @@ class JobTypesRepository extends EntityRepository
     public function findAllOrderedWithDeletedAtEnd() {
         $query = $this->getEntityManager()
                       ->createQuery('SELECT t 
-                                    FROM BigPandaDevMainBundle:JobTypes t 
+                                    FROM BigPandaDevMainBundle:Offers t
                                     ORDER BY t.deleted ASC');
         try {
             return $query->getResult();
