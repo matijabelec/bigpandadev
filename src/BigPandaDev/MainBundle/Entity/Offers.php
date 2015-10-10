@@ -52,11 +52,6 @@ class Offers
     
     
     /**
-     * @ORM\Column(type="string", length=140, nullable=false)
-     */
-    private $title;
-    
-    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $description;

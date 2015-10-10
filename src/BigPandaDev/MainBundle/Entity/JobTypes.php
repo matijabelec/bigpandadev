@@ -52,11 +52,6 @@ class JobTypes
     
     
     /**
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
-    private $title;
-    
-    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $description;

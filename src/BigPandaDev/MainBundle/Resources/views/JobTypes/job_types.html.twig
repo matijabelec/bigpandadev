@@ -11,8 +11,8 @@
         {% block header %}
             <th class="text-center">{{ 'No.'|trans }}</th>
             <th class="text-center">{{ 'Name'|trans }}</th>
-            <th class="text-center">{{ 'Title'|trans }}</th>
             <th class="text-center">{{ 'Description'|trans }}</th>
+            <th class="text-center">{{ 'Date created'|trans }}</th>
             <th>&nbsp;</th>
         {% endblock %}
 
@@ -25,10 +25,9 @@
                           data-original-title="{{ 'deleted'|trans }}"><i class="fa fa-dot-circle-o delete-info"></i></span>
                 {% endif %}
             </td>
-            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.title }}</td>
             <td class="text-left" style="vertical-align: middle;">{{ record.description|e }}</td>
-{#            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.datecreated|date('d.m.Y.') }}</td>
-            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.createdby }}</td>#}
+            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.datecreated|date('d.m.Y.') }}</td>
+{#            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.createdby }}</td>#}
         {% endblock %}
     {% endembed %}
 {% endblock %}

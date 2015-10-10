@@ -19,11 +19,11 @@ class JobTypesType extends AbstractType
             ))
             ->add('name', 'text', array())
             ->add('description', 'textarea', array())
-            ->add('date_from', 'datePicker', array())
-            ->add('date_to', 'datePicker', array())
-            ->add('price', 'text', array(
-                'label' => 'Price (kn)'
-            ))
+//            ->add('date_created', 'datePicker', array())
+//            ->add('date_to', 'datePicker', array())
+//            ->add('price', 'text', array(
+//                'label' => 'Price (kn)'
+//            ))
         ;
     }
     

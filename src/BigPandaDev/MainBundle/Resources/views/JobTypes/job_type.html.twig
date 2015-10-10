@@ -14,9 +14,7 @@
                 {% if job_type is defined and job_type is not null %}
                     <h2>#{{ job_type.id }}: {{ job_type.name|e }}</h2>
                     <p>{{ 'Description'|trans }}: {{ job_type.description|e }}</p>
-                    <p>{{ 'Date from'|trans }}: {{ job_type.datefrom|date('d.m.Y.') }}</p>
-                    <p>{{ 'Date to'|trans }}: {{ job_type.dateto|date('d.m.Y.') }}</p>
-                    <p>{{ 'Price'|trans }}: {{ job_type.price }} kn</p>
+                    <p>{{ 'Date created'|trans }}: {{ job_type.datecreated|date('d.m.Y.') }}</p>
                 {% else %}
                     <p>No job type with that id found!</p>
                 {% endif %}
