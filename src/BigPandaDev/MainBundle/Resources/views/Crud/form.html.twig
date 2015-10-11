@@ -1,33 +1,33 @@
-<div class="panel">
-    <div class="panel-heading">
-        <h2>{% block form_title %}{{ 'Form'|trans }}{% endblock %}</h2>
-    </div>
-    <div class="clearfix"></div>
-    <div class="panel-body">
-        <div class="container-fluid">
-            <div class=" {{ form_class|default('') }}">
-                {% block form_data %}
-                    {{ form_start(form) }}
-                    
-                    {% block custom_form %}
-                        {{ form_widget(form) }}
-                    {% endblock %}
-                    
-                    <hr />
-
-                    <div class="row">
-                        <div class="col-sm-10 col-sm-offset-1">
-                            {% if back_link is defined %}
-                                <a href="{{ back_link }}" class="btn btn-warning">{{ 'Back'|trans }}</a>
-                            {% endif %}
-
-                            <input type="submit" value="{{ 'Save'|trans }}" class="btn btn-success pull-right" />
-                        </div>
-                    </div>
-
-                    {{ form_end(form) }}
-                {% endblock %}
-            </div>
+{% block head %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>{% block form_title '' %}</h2>
         </div>
     </div>
+{% endblock %}
+
+<div class="clearfix"></div>
+
+<div class=" {{ form_class|default('') }}">
+    {% block form_data %}
+        {{ form_start(form) }}
+
+        {% block custom_form %}
+            {{ form_widget(form) }}
+        {% endblock %}
+
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                {% if back_link is defined %}
+                    <a href="{{ back_link }}" class="btn btn-warning">{{ 'Back'|trans }}</a>
+                {% endif %}
+
+                <input type="submit" value="{{ 'Save'|trans }}" class="btn btn-success pull-right" />
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    {% endblock %}
 </div>

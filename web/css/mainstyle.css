@@ -8,9 +8,21 @@
  ********************************************/
 
 /* body shifted because fixed top navigation */
-body{padding-top:90px;}
+body{
+    padding-top: 90px;
+    background-image: url('../gfx/photography-pattern2.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
 
 .table-title{display:inline-block;}
+.page-numbers .btn{
+    background-color: #313539;
+}
+.page-numbers .btn.active{
+    background-color: #dadada;
+    color: #020202;
+}
 
 .point-icon{font-size:112pt;}
 
@@ -45,6 +57,11 @@ body{padding-top:90px;}
     color: #020202;
 }
 
+/*.middle-dialogs .modal-dialog {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}*/
 
 @media all and (min-width:768px) {
     #main-nav .navicon{

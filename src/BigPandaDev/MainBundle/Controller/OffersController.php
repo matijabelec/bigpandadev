@@ -20,7 +20,7 @@ class OffersController extends BigPandaBaseController
     /**
      * @Route("/offers/{action}/{page}", defaults={"action"="","page"=""}, name="_offers")
      */
-    public function offersAction(/*Request $request,*/ $action, $page)
+    public function offersAction(Request $request, $action, $page)
     {
         switch($action) {
             case 'page':
@@ -37,15 +37,14 @@ class OffersController extends BigPandaBaseController
         
         $options = array();
         if(!$this->isGranted('ROLE_ADMIN') ) {
-            $options['where'] = array('deleted = 0');
+            $options['filter'] = array('deleted = 0');
         }
         
         $data = $offersRepo->getTable($page, 10, $options);
         
-        if(empty($data) ) {
-            return $this->redirectToRoute('_offers');
+        if($request->isXmlHttpRequest()) {
+            return $this->render('BigPandaDevMainBundle:Offers:offers_table.html.twig', $data);
         }
-        
         return $this->render('BigPandaDevMainBundle:Offers:offers.html.twig', $data);
     }
     
@@ -59,6 +58,32 @@ class OffersController extends BigPandaBaseController
         $repo = $em->getRepository('BigPandaDevMainBundle:Offers');
         
         switch($action) {
+            case 'order':
+                if(empty($id) ) {
+                    throw $this->createNotFoundException('No offer found for id ' . $id);
+                }
+                
+                if($this->isGranted('ROLE_ADMIN') ) {
+                    $offer = $repo->findOneById($id);
+                } else {
+                    $offer = $repo->findOneActiveById($id);
+                }
+                
+                return $this->render('BigPandaDevMainBundle:Offers:offer.html.twig', array(
+                    'offer' => $offer,
+                    'actions' => array('back', 'confirm'),
+                    'options' => array(
+                        'route' => array(
+                            'back' => $this->generateUrl('_offers'),
+                            'confirm' => '#'
+                        ),
+                        'record' => array(
+                            'id' => $id,
+                            'name' => $offer->getName()
+                        )
+                    )
+                ));
+            
             case 'edit':
                 $offer = $repo->findOneActiveById($id);
                 if(!$offer) {
@@ -126,12 +151,7 @@ class OffersController extends BigPandaBaseController
             throw $this->createNotFoundException('No offer found for id ' . $id);
         }
         
-        if($this->isGranted('ROLE_ADMIN') ) {
-            $offer = $repo->findOneById($id);
-        } else {
-            $offer = $repo->findOneActiveById($id);
-        }
-        
+        $offer = $repo->getPreview($id);
         return $this->render('BigPandaDevMainBundle:Offers:offer.html.twig', array(
             'offer' => $offer
         ));

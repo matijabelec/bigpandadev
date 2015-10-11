@@ -11,11 +11,19 @@
         {% embed "BigPandaDevMainBundle:Crud:read.html.twig" %}
             {% block read_title %}{{ 'Offer details'|trans }}{% endblock %}
             {% block record %}
-                {% if order is defined and offer is not null %}
-                    <h2>#{{ offer.id }}: {{ offer.name|e }}</h2>
+                {% if offer is defined and offer is not null %}
+                    <p>{{ offer.name|e }}</p>
+                    <p>{{ 'Id'|trans }}: {{ offer.id }}</p>
+                    <p>{{ 'Job type'|trans }}: {{ offer.jobtype }}</p>
+                    <p>{{ 'Status'|trans }}: {{ offer.status }}</p>
+                    <p>{{ 'Description'|trans }}: {{ offer.description|e }}</p>
                     <p>{{ 'Date created'|trans }}: {{ offer.datecreated|date('d.m.Y.') }}</p>
                 {% else %}
                     <p>No offer with that id found!</p>
+                {% endif %}
+                
+                {% if actions is defined %}
+                    {% block dialog_actions %}{{ extras.crud_form(actions, options) }}{% endblock %}
                 {% endif %}
             {% endblock %}
         {% endembed %}

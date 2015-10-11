@@ -1,4 +1,4 @@
-{% extends 'BigPandaDevMainBundle:Default:base_bs.html.twig' %}
+{% extends 'BigPandaDevMainBundle:Default:base.html.twig' %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/mainstyle.css') }}">
@@ -25,12 +25,9 @@
 
     {% include 'BigPandaDevMainBundle:Home:public.html.twig' %}
 
-    <footer id="contact" class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <hr class="small">
-                <p class="text-muted">Copyright &copy; BigPanda 2015. Webdesign by <a href="#">Matija Belec</a></p>
-            </div>
-        </div>
+    <footer class="container">
+        <hr class="small" />
+        <p>&copy; <a href="https://www.facebook.com/bigpandadev" target="bp_footer">BigPanda</a> {{ 'team'|trans }}. 
+            {{ 'Webdesign by'|trans }} <a href="https://www.facebook.com/matijabelec" target="bp_footer">Matija Belec</a>.</p>
     </footer>
 {% endblock %}

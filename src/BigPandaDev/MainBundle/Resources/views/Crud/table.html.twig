@@ -1,70 +1,49 @@
-<div class="container-fluid">
-    {% block create_action %}
-        <a href="{{ path(route_name, {'action':'create'}) }}" class="btn btn-primary pull-right crud-create"
-           role="button" 
-           data-toggle="tooltip" 
-           data-original-title="{{ 'Create'|trans }}"><i class="fa fa-plus"></i> {{ 'Create'|trans}}</a>
-    {% endblock %}
-    
-    <div class="clearfix"></div>
-    
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-bordered">
-            <thead>
-                <tr>{% block header %}{% endblock %}</tr>
-            </thead>
-            <tbody>
-                {% block data %}
-                    {% for record in records %}
-                        <tr>
-                            {% block record %}{% endblock %}
-                            {% block record_actions %}
-                                <td class="text-center text-nowrap" style="font-size: 20px; vertical-align: middle;">
-                                        {% if record.deleted == 0 %}
-                                            {% block record_actions_inside %}
-                                                <a href="{{ path(route_name, {'action':record.id}) }}"
-                                                   data-toggle="tooltip"
-                                                   data-original-title="{{ 'View'|trans }}">
-                                                    <i class="fa fa-sticky-note-o"></i></a>
-                                                <a href="{{ path(route_name, {'action':'edit', 'id':record.id}) }}"
-                                                   data-toggle="tooltip"
-                                                   data-original-title="{{ 'Edit'|trans }}"><i class="fa fa-pencil-square-o"></i></a>
-                                                <a role="button"
-                                                   data-toggle="modal"
-                                                   data-href="{{ path(route_name, {'action':'delete', 'id':record.id}) }}"
-                                                   data-record-id="{{ record.id }}"
-                                                   data-record-name="{{ record.name|e }}"
-                                                   data-target="#modal-delete-confirm"
-                                                   data-toggle="tooltip"><i class="fa fa-remove"
-                                                                            data-original-title="{{ 'Delete'|trans }}"
-                                                                            data-toggle="tooltip"></i></a>
-                                            {% endblock %}
-                                        {% else %}
-                                            <a role="button"
-                                               data-toggle="modal"
-                                               data-href="{{ path(route_name, {'action':'undelete', 'id':record.id}) }}"
-                                               data-record-id="{{ record.id }}"
-                                               data-record-name="{{ record.name|e }}"
-                                               data-target="#modal-undelete-confirm"
-                                               data-toggle="tooltip"><i class="fa fa-undo"
-                                                                        data-original-title="{{ 'Undelete'|trans }}"
-                                                                        data-toggle="tooltip"></i></a>
-                                        {% endif %}
-                                </td>
-                            {% endblock %}
-                        </tr>
-                    {% else %}
-                        <tr>
-                            {% block no_records_found %}<td colspan="100">{{ 'No records found!'|trans }}</td>{% endblock %}
-                        </tr>
-                    {% endfor %}
-                {% endblock %}
-            </tbody>
-        </table>
+{% if rows is not defined %}
+    {% set rows = false %}
+{% endif %}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-7">
+        <h2>{% block name '' %}</h2>
     </div>
-    
-    <div class="clearfix"></div>
-    
-    {% import 'BigPandaDevMainBundle:Crud:extras.html.twig' as pg %}
-    {% if pagination is defined %}{{ pg.pagination(pagination, {'route_name':'_offers'}) }}{% endif %}
+    <div class="col-xs-12 col-sm-5">
+        {% block create '' %}{#{{ extras.crud(['create'], {'route_name': route_name}) }}{% endblock %}#}
+    </div>
 </div>
+
+<div class="clearfix"></div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr>{% block header %}{% endblock %}</tr>
+        </thead>
+        <tbody class="table-rows">
+            {% for row in rows %}
+                <tr>{% block row %}{% endblock %}</tr>
+            {% else %}
+                <tr><td colspan="100">{{ 'No records found!'|trans }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="clearfix"></div>
+
+{% if pagination is defined %}{{ extras.pagination(pagination, {'route_name':'_offers'}) }}{% endif %}
+
+{#
+<td class="text-center text-nowrap" style="font-size: 20px; vertical-align: middle;">
+    {% set options = {'route_name': route_name, 'record':{'id':record.id, 'name':record.name} } %}
+    {% if record.deleted == 0 %}
+        {% block record_actions_inside %}
+            {{ extras.crud(['read', 'edit', 'delete'], options) }}
+        {% endblock %}
+    {% else %}
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+            {{ extras.crud(['undelete'], options) }}
+        {% endif %}
+    {% endif %}
+</td>
+#}
+

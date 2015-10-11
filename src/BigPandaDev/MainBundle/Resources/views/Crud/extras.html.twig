@@ -4,34 +4,34 @@
 
         {% if pg.pages > 1 %}
             {% spaceless %}
-            <div class="col-xs-12 col-sm-6 text-right">
+            <div class="col-xs-12 col-sm-6 text-right page-numbers">
                 {% if pg.pages < 6 %}
                     {% for p in 1..pg.pages %}
                         {% if p == pg.page %}
-                            <a class="btn" href="#">{{ p }}</a>
+                            <a class="btn active" href="#">{{ p }}</a>
                         {% else %}
-                            <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
+                            <a class="btn" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
                         {% endif %}
                     {% endfor %}
                 {% else %}
                     {% if pg.page<4 %}
                         {% for p in 1 .. 4 %}
                             {% if p == pg.page %}
-                                <a class="btn" href="#">{{ p }}</a>
+                                <a class="btn active" href="#">{{ p }}</a>
                             {% else %}
-                                <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
+                                <a class="btn" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
                             {% endif %}
                         {% endfor %}
                         ...
-                        <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':pg.pages}) }}">{{ pg.pages }}</a>
+                        <a class="btn" href="{{ path(options.route_name, {'action':'page', 'page':pg.pages}) }}">{{ pg.pages }}</a>
                     {% elseif pg.page>pg.pages-3 %}
-                        <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':1}) }}">{{ 1 }}</a>
+                        <a class="btn" href="{{ path(options.route_name, {'action':'page', 'page':1}) }}">{{ 1 }}</a>
                         ...
                         {% for p in pg.pages-3 .. pg.pages %}
                             {% if p == pg.page %}
-                                <a class="btn" href="#">{{ p }}</a>
+                                <a class="btn active" href="#">{{ p }}</a>
                             {% else %}
-                                <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
+                                <a class="btn" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
                             {% endif %}
                         {% endfor %}
                     {% else %}
@@ -39,13 +39,13 @@
                         ...
                         {% for p in pg.page-1 .. pg.page+1 %}
                             {% if p == pg.page %}
-                                <a class="btn" href="#">{{ p }}</a>
+                                <a class="btn active" href="#">{{ p }}</a>
                             {% else %}
-                                <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
+                                <a class="btn" href="{{ path(options.route_name, {'action':'page', 'page':p}) }}">{{ p }}</a>
                             {% endif %}
                         {% endfor %}
                         ...
-                        <a class="btn" style="background-color: #dadada; color: #020202;" href="{{ path(options.route_name, {'action':'page', 'page':pg.pages}) }}">{{ pg.pages }}</a>
+                        <a class="btn" href="{{ path(options.route_name, {'action':'page', 'page':pg.pages}) }}">{{ pg.pages }}</a>
                     {% endif %}
                 {% endif %}
             </div>
@@ -53,3 +53,87 @@
         {% endif %}
     </div>
 {% endmacro %}
+
+{% macro crud(actions, options) %}
+    {% for action in actions %}
+        {% if action == 'read' %}
+            <a href="{{ path(options.route_name, {'action':options.record.id}) }}"
+               data-hover="tooltip"
+               data-original-title="{{ 'View'|trans }}"><i class="fa fa-sticky-note-o"></i></a>
+        
+        {% elseif action == 'edit' %}
+            <a href="{{ path(options.route_name, {'action':'edit', 'id':options.record.id}) }}"
+                data-hover="tooltip"
+                data-original-title="{{ 'Edit'|trans }}"><i class="fa fa-pencil-square-o"></i></a>
+        
+        {% elseif action == 'delete' %}
+            <a role="button"
+               data-toggle="modal"
+               data-href="{{ path(options.route_name, {'action':'delete', 'id':options.record.id}) }}"
+               data-record-id="{{ options.record.id }}"
+               data-record-name="{{ options.record.name|e }}"
+               data-target="#modal-delete-confirm"
+               data-original-title="{{ 'Delete'|trans }}"
+               data-hover="tooltip"><i class="fa fa-remove"></i></a>
+        
+        {% elseif action == 'order' %}
+            <a href="{{ path(options.route_name, {'action':'order', 'id':options.record.id}) }}"
+               data-original-title="{{ 'Order'|trans }}"
+               data-hover="tooltip"><i class="fa fa-usd"></i></a>
+        
+        {% elseif action == 'create' %}
+            <a href="{{ path(options.route_name, {'action':'create'}) }}" class="btn btn-primary pull-right crud-create"
+               role="button" 
+               data-hover="tooltip" 
+               data-original-title="{{ 'Create'|trans }}"><i class="fa fa-plus"></i> {{ 'Create'|trans}}</a>
+        
+        {% elseif action == 'undelete'%}
+            <a role="button"
+               data-toggle="modal"
+               data-href="{{ path(options.route_name, {'action':'undelete', 'id':options.record.id}) }}"
+               data-record-id="{{ options.record.id }}"
+               data-record-name="{{ options.record.name|e }}"
+               data-target="#modal-undelete-confirm"
+               data-original-title="{{ 'Undelete'|trans }}"
+               data-hover="tooltip"><i class="fa fa-undo"></i></a>
+        
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro crud_form(actions, options) %}
+    {% for action in actions %}
+        {% if action == 'back' %}
+            <a href="{{ options.route.back }}"
+               data-hover="tooltip"
+               data-original-title="{{ 'Back'|trans }}"><i class="fa fa-arrow-left"></i> {{ 'Back'|trans }}</a>
+        
+        {% elseif action == 'confirm' %}
+            <a role="button"
+               data-toggle="modal"
+               data-href="{{ options.route.confirm }}"
+               data-record-id="{{ options.record.id }}"
+               data-record-name="{{ options.record.name|e }}"
+               data-target="#modal-confirm"
+               data-original-title="{{ 'Confirm'|trans }}"
+               data-hover="tooltip"><i class="fa fa-arrow-right"></i> {{ 'Confirm'|trans }}</a>
+        
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+
+
+
+{% macro table_ajax(route) %}
+    <div data-load="ajax-table" data-route="{{ route }}"><i class="fa fa-spinner fa-pulse"></i></div>
+{% endmacro %}
+
+{% macro form() %}
+{% endmacro %}
+
+{% macro preview() %}
+{% endmacro %}
+
+

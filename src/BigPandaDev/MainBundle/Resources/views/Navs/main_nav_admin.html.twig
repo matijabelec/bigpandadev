@@ -1,10 +1,36 @@
 <ul class="nav navbar-nav navbar-left">
-    <li><a href="{{ path('_home') }}"><i class="fa fa-home navicon"></i> <span>{{ 'Home'|trans }}</span></a></li>
-    <li><a href="{{ path('_offers') }}"><i class="fa fa-list-alt navicon"></i> <span>{{ 'Offers'|trans }}</span></a></li>
-    <li><a href="{{ path('_orders') }}"><i class="fa fa-list-alt navicon"></i> <span>{{ 'Orders'|trans }}</span></a></li>
-    <li><a href="#paynaments"><i class="fa fa-cart-plus navicon"></i> <span>{{ 'Payments'|trans }}</span></a></li>
-    <li><a href="#feedbacks"><i class="fa fa-envelope navicon"></i> <span>{{ 'Feedbacks'|trans }}</span></a></li>
-    <li><a href="#tasks"><i class="fa fa-cog navicon"></i> <span>{{ 'Tasks'|trans }}</span></a></li>
+{#    <li><a href="{{ path('_home') }}"><i class="fa fa-home navicon"></i> <span>{{ 'Home'|trans }}</span></a></li>#}
+    
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-circle-o navicon"></i> <span>{{ 'Blog'|trans }}</span> <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="#blog/posts"><i class="fa fa-cog"></i> <span>{{ 'Posts'|trans }}</span></a></li>
+            <li><a href="#blog/myposts{#{ path('_orders') }#}"><i class="fa fa-list-alt"></i> <span>{{ 'My posts'|trans }}</span></a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#blog/stats"><i class="fa fa-circle-o"></i> <span>{{ 'Blog statistics'|trans }}</span></a></li>
+        </ul>
+    </li>
+    
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-circle-o navicon"></i> <span>{{ 'My offers'|trans }}</span> <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ path('_offers') }}"><i class="fa fa-circle-o"></i> {{ 'Offers'|trans }}</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{ path('_job_types') }}"><i class="fa fa-circle-o"></i> {{ 'Job types'|trans }}</a></li>
+        </ul>
+    </li>
+    
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-circle-o navicon"></i> <span>{{ 'My jobs'|trans }}</span> <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ path('_orders') }}"><i class="fa fa-list-alt"></i> <span>{{ 'Orders'|trans }}</span></a></li>
+            <li><a href="#tasks"><i class="fa fa-cog"></i> <span>{{ 'Tasks'|trans }}</span></a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#paynaments"><i class="fa fa-cart-plus"></i> <span>{{ 'Payments'|trans }}</span></a></li>
+            <li><a href="#feedbacks"><i class="fa fa-envelope"></i> <span>{{ 'Feedbacks'|trans }}</span></a></li>
+        </ul>
+    </li>
+    
     <li><a href="#stats"><i class="fa fa-line-chart navicon"></i> <span>{{ 'Statistics'|trans }}</span></a></li>
     <li><a href="#admin"><i class="fa fa-lock navicon"></i> <span>{{ 'Admin panel'|trans }}</span></a></li>
     

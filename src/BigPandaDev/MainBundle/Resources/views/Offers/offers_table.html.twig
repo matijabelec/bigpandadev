@@ -1,0 +1,52 @@
+{% import 'BigPandaDevMainBundle:Crud:extras.html.twig' as extras %}
+{% set route = '_offers' %}
+{% set route_name = '_offer' %}
+{% set bc_name = 'offers' %}
+
+{% set actions = ['read', 'order'] %}
+{% if app.user and is_granted('ROLE_EMPLOYEE') %}
+    {% set actions = ['read', 'order', 'edit', 'delete'] %}
+{% endif %}
+
+{% extends 'BigPandaDevMainBundle:Crud:table.html.twig' %}
+{% block table_title 'Offers'|trans %}
+
+{% block header %}
+    <th class="text-center">{{ 'No.'|trans }}</th>
+    <th class="text-center">{{ 'Name'|trans }}</th>
+    <th class="text-center">{{ 'Description'|trans }}</th>
+    <th class="text-center">{{ 'Status'|trans }}</th>
+    <th class="text-center">{{ 'Price'|trans }}</th>
+    <th class="text-center">{{ 'Job type'|trans }}</th>
+    <th>&nbsp;</th>
+{% endblock %}
+
+{% block row %}
+    <td class="text-right span1" style="vertical-align: middle;">{{ row.index }}</td>
+    <td class="text-left" style="vertical-align: middle;">
+        {%- if row.deleted == 1 %}
+            <span data-toggle="tooltip"
+                  data-original-title="{{ 'deleted'|trans }}"><i class="fa fa-dot-circle-o delete-info"></i></span>
+        {% endif -%}
+        {{- row.name|e -}}
+    </td>
+    <td class="text-left" style="vertical-align: middle;">{{ row.description|length > 50 ? row.description|e|slice(0, 50) ~ '...' : row.description|e  }}</td>
+    <td class="text-center" style="vertical-align: middle;">{{ row.status }}</td>
+    <td class="text-center" style="vertical-align: middle;">{{ row.price }}</td>
+    <td class="text-center" style="vertical-align: middle;">{{ row.job_type }}</td>
+    
+    {% set crud_options = {'route_name': route_name, 'record': {'id': row.id, 'name': row.name} } %}
+    <td class="text-center text-nowrap" style="font-size: 20px; vertical-align: middle;">
+        {% if row.deleted == 0 %}
+            {{ extras.crud(actions, crud_options) }}
+        {% elseif app.user and is_granted('ROLE_ADMIN') %}
+            {{ extras.crud(['undelete'], crud_options) }}
+        {% endif %}
+    </td>
+{% endblock %}
+
+{% block create %}
+    {% if app.user and is_granted('ROLE_EMPLOYEE') %}
+        {{ extras.crud(['create'], {'route_name': route_name}) }}
+    {% endif %}
+{% endblock %}

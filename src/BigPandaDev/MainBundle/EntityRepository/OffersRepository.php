@@ -70,7 +70,7 @@ class OffersRepository extends EntityRepository
         
         $where =  '';
         if(isset($options['filter']) and is_array($options['filter']) ) {
-            $where = 'WHERE';
+            $where = 'HAVING';
             foreach($options['filter'] as &$f) {
                 $where .= ' t.' . $f;
             }
@@ -131,21 +131,36 @@ class OffersRepository extends EntityRepository
         $pages = ceil($count / $limit);
         
         if($page > $pages)
-            return array();
+            return false;
         
         return array(
-            'records' => $table,
+            'rows' => $table,
             'pagination' => array(
                 'count' => $count,
                 'page' => $page,
                 'pages' => $pages
             )
         );
+    }
+    
+    public function getPreview($id, $options=array() ) {
+        $record = $this->findOneActiveById($id);
         
+        if(!$record)
+            return false;
         
-//        $dql = "SELECT p, c FROM BlogPost p JOIN p.comments c";
-//        $query = $entityManager->createQuery($dql)
-//                               ->setFirstResult(0)
-//                               ->setMaxResults(100);
+        // additional data for table
+        $offer_statuses = array(
+            1 => 'Available',
+            2 => 'Not-available',
+            3 => 'Soon',
+            4 => 'Hidden'
+        );
+        
+        $status_id = $record->getStatus();
+        $status = empty($status_id) ? '' : $offer_statuses[$status_id];
+        $record->setStatus($status);
+        
+        return $record;
     }
 }

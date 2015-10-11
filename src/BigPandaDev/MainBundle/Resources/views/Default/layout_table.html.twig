@@ -33,8 +33,37 @@
         $(e.currentTarget).find('.record-name').text($(e.relatedTarget).data('record-name'));
     }).draggable();
 {% endif %}
-
-</script>
+    </script>
+    <script>
+        //table pages
+        function table_pages(tb, d) {
+            $('.page-numbers').on('click', '.btn', function(e){
+                e.preventDefault();
+                btn=$(this);
+                tb=btn.closest('[data-load="ajax-table"]').find('.table-rows').first();
+                $.get(btn.attr('href') )
+                    .done(function(d){
+                        btn.closest('.page-numbers').find('.btn.active').removeClass('active');
+                        btn.addClass('active');
+                        tb.html($(d).find('.table-rows').first().html() );
+                    })
+                    .fail(function(){tb.html("{{ 'Error'|trans }}");});
+            });
+        }
+        
+        //load table
+        $('[data-load="ajax-table"]').each(function(){
+            tb=$(this);
+            $.get(tb.data('route'))
+                .done(function(d){
+                    tb.html(d);
+                    table_pages(tb, d);
+                })
+                .fail(function(){tb.html("{{ 'Error'|trans }}");});
+        });
+        
+        
+    </script>
 {% endblock %}
 
 {% block layout %}
@@ -42,37 +71,16 @@
     
     <div class="container-fluid">
         {% if bc_name is defined %} &gt; {{ bc.breadcrumb(bc_name) }}{% endif %}
-        {% block content %}{% endblock %}
+        {% block table %}{% endblock %}
     </div>
     
-    <footer class="container">
-        <hr class="small" />
-        <p>&copy; <a href="https://www.facebook.com/bigpandadev" target="bp_footer">BigPanda</a> {{ 'team'|trans }}. 
-            {{ 'Webdesign by'|trans }} <a href="https://www.facebook.com/matijabelec" target="bp_footer">Matija Belec</a>.</p>
-    </footer>
+    {% include 'BigPandaDevMainBundle:Default:footer.html.twig' %}
     
     <div class="container">
-        {% block dialogs %}
-            {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
-                {% block body %}
-                    <p>{{ 'Are you sure you want to delete record'|trans }} 
-                        "<span class="record-name" style="font-weight: bold;"></span>" 
-                        (<span class="record-id"></span>)?</p>
-                {% endblock %}
-            {% endembed %}
-
-            {% if app.user and is_granted('ROLE_ADMIN') %}
-                {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
-                    {% block modal_id 'modal-undelete-confirm' %}
-                    {% block title 'Confirm undelete' %}
-                    {% block button_ok_label 'Undelete'|trans %}
-                    {% block body %}
-                        <p>{{ 'Are you sure you want to undelete record'|trans }} 
-                            "<span class="record-name" style="font-weight: bold;"></span>" 
-                            (<span class="record-id"></span>)?</p>
-                    {% endblock %}
-                {% endembed %}
-            {% endif%}
-        {% endblock %}
+        {% include 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+            {% include 'BigPandaDevMainBundle:Dialogs:modal_undelete_confirm.html.twig' %}
+        {% endif%}
+        {% block dialogs %}{% endblock %}
     </div>
 {% endblock %}

@@ -1,91 +1,10 @@
-{% extends 'BigPandaDevMainBundle:Default:layout_panel-12.html.twig' %}
+{% extends 'BigPandaDevMainBundle:Default:layout_table.html.twig' %}
+{% set route = '_offers' %}
 {% set route_name = '_offer' %}
 {% set bc_name = 'offers' %}
 
 {% block panel_title 'Offers'|trans %}
 
-{% block content %}
-    {% embed 'BigPandaDevMainBundle:Crud:table.html.twig' %}
-        {% block table_title 'Offers'|trans %}
-        
-        {% block header %}
-            <th class="text-center">{{ 'No.'|trans }}</th>
-            <th class="text-center">{{ 'Name'|trans }}</th>
-            <th class="text-center">{{ 'Description'|trans }}</th>
-            <th class="text-center">{{ 'Status'|trans }}</th>
-            <th class="text-center">{{ 'Price'|trans }}</th>
-            <th class="text-center">{{ 'Job type'|trans }}</th>
-            <th>&nbsp;</th>
-        {% endblock %}
-        
-        {% block record %}
-            <td class="text-right" style="vertical-align: middle;">{{ record.index }}</td>
-            <td class="text-left" style="vertical-align: middle;">
-                {{ record.name|e }}
-                {% if record.deleted == 1 %}
-                    <span data-toggle="tooltip"
-                          data-original-title="{{ 'deleted'|trans }}"><i class="fa fa-dot-circle-o delete-info"></i></span>
-                {% endif %}
-            </td>
-            <td class="text-left" style="vertical-align: middle;">{{ record.description|e }}</td>
-            <td class="text-center" style="vertical-align: middle;">{{ record.status }}</td>
-            <td class="text-center" style="vertical-align: middle;">{{ record.price }}</td>
-            <td class="text-center" style="vertical-align: middle;">{{ record.job_type }}</td>
-{#            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.datecreated|date('d.m.Y.') }}</td>#}
-{#            <td class="text-right col-xs-1" style="vertical-align: middle;">{{ record.createdby.username }}</td>#}
-        {% endblock %}
-        
-        {% block create_action %}
-            {% if app.user and is_granted('ROLE_EMPLOYEE') %}
-                {{ parent() }}
-            {% endif %}
-        {% endblock %}
-        
-        {% block record_actions_inside %}
-            
-                <a href="{{ path(route_name, {'action':record.id}) }}"
-                    data-toggle="tooltip"
-                    data-original-title="{{ 'View'|trans }}">
-                     <i class="fa fa-sticky-note-o"></i></a>
-            
-            {% if app.user and is_granted('ROLE_EMPLOYEE') %}
-                <a href="{{ path(route_name, {'action':'edit', 'id':record.id}) }}"
-                    data-toggle="tooltip"
-                    data-original-title="{{ 'Edit'|trans }}"><i class="fa fa-pencil-square-o"></i></a>
-            
-                <a role="button"
-                    data-toggle="modal"
-                    data-href="{{ path(route_name, {'action':'delete', 'id':record.id}) }}"
-                    data-record-id="{{ record.id }}"
-                    data-record-name="{{ record.name|e }}"
-                    data-target="#modal-delete-confirm"
-                    data-toggle="tooltip"><i class="fa fa-remove"
-                                             data-original-title="{{ 'Delete'|trans }}"
-                                             data-toggle="tooltip"></i></a>
-            {% endif %}
-        {% endblock %}
-    {% endembed %}
-{% endblock %}
-
-{% block dialogs %}
-    {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
-        {% block body %}
-            <p>{{ 'Are you sure you want to delete offer'|trans }} 
-                "<span class="record-name" style="font-weight: bold;"></span>" 
-                (<span class="record-id"></span>)?</p>
-        {% endblock %}
-    {% endembed %}
-
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-        {% embed 'BigPandaDevMainBundle:Dialogs:modal_delete_confirm.html.twig' %}
-            {% block modal_id 'modal-undelete-confirm' %}
-            {% block title 'Confirm undelete' %}
-            {% block button_ok_label 'Undelete'|trans %}
-            {% block body %}
-                <p>{{ 'Are you sure you want to undelete offer'|trans }} 
-                    "<span class="record-name" style="font-weight: bold;"></span>" 
-                    (<span class="record-id"></span>)?</p>
-            {% endblock %}
-        {% endembed %}
-    {% endif%}
+{% block table %}
+    {{ extras.table_ajax(app.request.uri) }}
 {% endblock %}
