@@ -3,8 +3,6 @@
 {% set route_name = '_offer' %}
 {% set bc_name = 'offers' %}
 
-{% block panel_title 'Offers'|trans %}
-
 {% block table %}
     {{ extras.table_ajax(app.request.uri) }}
 {% endblock %}
